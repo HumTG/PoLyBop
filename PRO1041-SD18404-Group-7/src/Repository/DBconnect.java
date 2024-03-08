@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author Admin
  */
 public class DBconnect {
-    // CHỉnh sửa 
+    
     public static final String HOSTNAME = "localhost";
     public static final String PORT = "1433";
     public static final String DBNAME = "PoLyBop";
