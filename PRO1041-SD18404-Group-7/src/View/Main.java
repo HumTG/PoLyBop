@@ -24,7 +24,7 @@ public class Main extends javax.swing.JFrame {
         setColor(lbl_Trangchu);
         setColorJpanel(Trangchu);
         showPanel(new TrangChuView());
-        
+    
     }
 
     /**
