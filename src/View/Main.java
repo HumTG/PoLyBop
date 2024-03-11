@@ -440,7 +440,6 @@ public class Main extends javax.swing.JFrame {
         resetColor(lbl_KhuyenMai);
         showPanel(new BanHangView(nameNV, email));
 
-
     }//GEN-LAST:event_lbl_BanHangMouseClicked
 
     private void lbl_SanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_SanPhamMouseClicked
