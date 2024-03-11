@@ -17,14 +17,32 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    String email, nameNV;
+    int chucVu;
+
+    public Main(String email, String nameNV, int chucVu) {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setColor(lbl_Trangchu);
         setColorJpanel(Trangchu);
         showPanel(new TrangChuView());
-    
+        this.email = email;
+        this.nameNV = nameNV;
+        this.chucVu = chucVu;
+        lblNhanVien.setText(nameNV);
+        if (chucVu == 1) {
+            lblChucVu.setText("- ADMIN");
+        } else {
+            lblChucVu.setText("- NHÂN VIÊN");
+        }
+
+    }
+
+    private Main() {
+        initComponents();
+        setLocationRelativeTo(null);
+
     }
 
     /**
@@ -36,7 +54,9 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        mnDKM = new javax.swing.JMenuItem();
+        mnThoat = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Trangchu = new javax.swing.JPanel();
@@ -55,24 +75,30 @@ public class Main extends javax.swing.JFrame {
         lbl_KhuyenMai = new javax.swing.JLabel();
         ThongKe = new javax.swing.JPanel();
         lbl_thongke = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblNhanVien = new javax.swing.JLabel();
+        lblChucVu = new javax.swing.JLabel();
         Panel_Show = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 63, Short.MAX_VALUE)
-        );
+        mnDKM.setText("Đổi mật khẩu");
+        mnDKM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDKMActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(mnDKM);
+
+        mnThoat.setText("Thoát");
+        mnThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnThoatActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(mnThoat);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản Lý Bán Hàng BoLyBop");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1170, 650));
+        setPreferredSize(new java.awt.Dimension(1300, 680));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(73, 186, 245));
@@ -81,6 +107,11 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/use.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         Trangchu.setBackground(new java.awt.Color(73, 186, 245));
 
@@ -297,9 +328,13 @@ public class Main extends javax.swing.JFrame {
             .addComponent(lbl_thongke, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("Nhân Viên ");
+        lblNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhanVien.setForeground(new java.awt.Color(255, 51, 51));
+        lblNhanVien.setText("Nhân Viên ");
+
+        lblChucVu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblChucVu.setForeground(new java.awt.Color(255, 51, 51));
+        lblChucVu.setText("Chức vụ ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -314,11 +349,15 @@ public class Main extends javax.swing.JFrame {
             .addComponent(KhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
             .addComponent(ThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(lblNhanVien)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(lblChucVu)
+                .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +365,9 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNhanVien)
+                    .addComponent(lblChucVu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Trangchu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,9 +390,9 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         Panel_Show.setBackground(new java.awt.Color(255, 255, 255));
-        Panel_Show.setPreferredSize(new java.awt.Dimension(960, 650));
+        Panel_Show.setPreferredSize(new java.awt.Dimension(1180, 650));
         Panel_Show.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(Panel_Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 0, 950, -1));
+        getContentPane().add(Panel_Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -397,7 +438,9 @@ public class Main extends javax.swing.JFrame {
         resetColor(lbl_KhachHang);
         resetColor(lbl_NhanVien);
         resetColor(lbl_KhuyenMai);
-        showPanel(new BanHangView());
+        showPanel(new BanHangView(nameNV, email));
+
+
     }//GEN-LAST:event_lbl_BanHangMouseClicked
 
     private void lbl_SanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_SanPhamMouseClicked
@@ -532,6 +575,24 @@ public class Main extends javax.swing.JFrame {
         showPanel(new ThongKeView());
     }//GEN-LAST:event_lbl_thongkeMouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        jPopupMenu1.show(evt.getComponent(), -20, 60);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void mnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnThoatActionPerformed
+        // Thoát
+        LoginView lg = new LoginView();
+        lg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mnThoatActionPerformed
+
+    private void mnDKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDKMActionPerformed
+        // Đổi mật khẩu
+        DoiMK_View dmk = new DoiMK_View(email);
+        dmk.setVisible(true);
+    }//GEN-LAST:event_mnDKMActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -578,9 +639,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel ThongKe;
     private javax.swing.JPanel Trangchu;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel lblChucVu;
+    private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lbl_BanHang;
     private javax.swing.JLabel lbl_HoaDon;
     private javax.swing.JLabel lbl_KhachHang;
@@ -589,6 +651,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_SanPham;
     private javax.swing.JLabel lbl_Trangchu;
     private javax.swing.JLabel lbl_thongke;
+    private javax.swing.JMenuItem mnDKM;
+    private javax.swing.JMenuItem mnThoat;
     // End of variables declaration//GEN-END:variables
 
     public void setColorJpanel(JPanel pane) {
