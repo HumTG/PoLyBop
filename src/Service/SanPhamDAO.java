@@ -38,7 +38,7 @@ public class SanPhamDAO implements InterfaceSanPham {
         }
         return list;
     }
-
+    
     @Override
     public List<SanPham> seachSP(String key) {
         String sql = " SELECT Ma_Vi,\n"

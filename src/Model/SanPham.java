@@ -27,6 +27,18 @@ public class SanPham {
         this.giaBan = giaBan;
     }
 
+    public SanPham(String maVi, String tenVi, String kieuDang, String thuongHieu, String mauSac) {
+        this.maVi = maVi;
+        this.tenVi = tenVi;
+        this.kieuDang = kieuDang;
+        this.thuongHieu = thuongHieu;
+        this.mauSac = mauSac;
+    }
+
+    
+
+    
+
     public SanPham() {
     }
 
