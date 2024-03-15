@@ -196,7 +196,15 @@ public class KhachHangView extends javax.swing.JPanel {
             new String [] {
                 "Mã khách hàng", "Họ tên", "Sđt", "Ngày sinh", "Email", "Địa chỉ", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl_KhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_KhachHangMouseClicked(evt);
@@ -411,6 +419,9 @@ public class KhachHangView extends javax.swing.JPanel {
         int index = tbl_KhachHang.getSelectedRow();
         Model.KhachHang kh = khachHangRepository.getById(tbl_KhachHang.getValueAt(index, 0).toString());
         show(kh);
+        // Show lên các hóa đơn mà khách hàng đã mua
+        InformationHoaDonKH informationHoaDonKH = new InformationHoaDonKH(kh.getIdKhachHang());
+        informationHoaDonKH.setVisible(true);
     }//GEN-LAST:event_tbl_KhachHangMouseClicked
 
     private void btnFirstPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstPageActionPerformed
