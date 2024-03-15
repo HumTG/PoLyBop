@@ -4,6 +4,7 @@
  */
 package Service;
 import Model.SanPham; 
+import Model.SanPhamCT;
 import java.util.List;
 
 /**
@@ -23,5 +24,7 @@ public interface InterfaceSanPham {
     void updateSLSP(int IDCTSP , int soLuong); 
     // Lấy ra tổng số lượng của sản phẩm 
     int sumSLSP(int IDCTSP, String maHDCT);
+    // lấy ra thông tin sản phẩm chi tiết qua quã sản phẩm 
+    List<SanPhamCT> getDaTaSPCT(String maSP);
     
 }
