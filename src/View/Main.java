@@ -341,7 +341,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(lbl_KhachHang);
         resetColor(lbl_NhanVien);
         resetColor(lbl_KhuyenMai);
-        showPanel(new ThongKeView());
+        showPanel(new ThongKe_View());
     }//GEN-LAST:event_lbl_thongkeMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
