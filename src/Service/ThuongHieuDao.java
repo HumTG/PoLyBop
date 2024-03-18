@@ -5,37 +5,95 @@
 package Service;
 
 import Model.ThuongHieu;
-import Repository.DBconnect;
-import java.util.List;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
+import Repository.JDBCHeper;
 
 /**
  *
- * @author Xuan Dat
+ * @author Windows
  */
 public class ThuongHieuDao implements InterfaceThuongHieu {
 
+    String selectAll = "select *from ThuongHieu";
+    String update = "update ThuongHieu set TenThuongHieu =? , TrangThai = ? where Ma_ThuongHieu =?";
+    String selectById = "select * from ThuongHieu where IDThuongHieu = ?";
+String selectById1 = "select * from ThuongHieu where Ma_ThuongHieu = ?";
+String insert ="insert into ThuongHieu (Ma_ThuongHieu , TenThuongHieu, TrangThai) values (?,?,?)";
     @Override
-    public List<ThuongHieu> getAllListThuongHieu() {
-        String sql = "SELECT  [IDThuongHieu]\n"
-                + "      ,[Ma_ThuongHieu]\n"
-                + "      ,[TenThuongHieu]\n"
-                + "      ,[TrangThai]\n"
-                + "  FROM [PoLyBop].[dbo].[ThuongHieu]";
-        List<ThuongHieu> lists = new ArrayList<>();
-        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ThuongHieu th = new ThuongHieu(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4)); 
-                lists.add(th); 
+    public void insert(ThuongHieu sp) {
+        JDBCHeper.update(insert, sp.getMa_ThuongHieu(), sp.getTenThuongHieu(),sp.isTrangThai());
+    }
+    
+    @Override
+    public void update(ThuongHieu sp) {
+        
+        JDBCHeper.update(update, sp.getTenThuongHieu(), sp.isTrangThai(), sp.getMa_ThuongHieu());
+    }
+    
+    @Override
+    public void delete(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public List<ThuongHieu> selectAll() {
+        return selectBySQL(selectAll);
+    }
+    
+    @Override
+    public ThuongHieu selectID(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public List<ThuongHieu> selectBySQL(String sql, Object... args) {
+        List<ThuongHieu> list_th = new ArrayList<>();
+        
+        try {
+            ResultSet rs = JDBCHeper.query(sql, args);
+            while (rs.next()) {                
+                ThuongHieu th = new ThuongHieu();
+                th.setIdThuongHieu(rs.getInt("idThuongHieu"));
+                th.setMa_ThuongHieu(rs.getString("Ma_ThuongHieu"));
+                th.setTenThuongHieu(rs.getString("tenThuongHieu"));
+                th.setTrangThai(rs.getBoolean("trangThai"));
+                list_th.add(th);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lists; 
+        return list_th;
     }
 
+    public String selectNameByID(int id) {
+        return selectBySQL(selectById, id).get(0).getTenThuongHieu();
+    }
+
+    public int selectIdByName(String name) {
+        String sql = "select * from ThuongHieu where TenThuongHieu =?";
+        return selectBySQL(sql, name).get(0).getIdThuongHieu();
+    }
+   
+    public ThuongHieu selectID1(String id) {
+       List<ThuongHieu> list = selectBySQL(selectById1, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+    public int selectMaLOAISP() {
+        try {
+            String sql = "select max(cast(substring(Ma_ThuongHieu,4,LEN(IDThuongHieu))as int)) from  ThuongHieu ";
+            ResultSet rs = JDBCHeper.query(sql);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

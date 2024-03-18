@@ -4,57 +4,60 @@
  */
 package Model;
 
+
+
 /**
  *
- * @author Xuan Dat
+ * @author Windows
  */
 public class ThuongHieu {
-    private Integer id;
-    private String Ma;
-    private String Ten;
-    private String tt;
+    private int idThuongHieu;
+    private String Ma_ThuongHieu;
+    private String tenThuongHieu;
+    private boolean trangThai;
 
     public ThuongHieu() {
     }
 
-    public ThuongHieu(Integer id, String Ma, String Ten, String tt) {
-        this.id = id;
-        this.Ma = Ma;
-        this.Ten = Ten;
-        this.tt = tt;
+    public ThuongHieu(int idThuongHieu, String Ma_ThuongHieu, String tenThuongHieu, boolean trangThai) {
+        this.idThuongHieu = idThuongHieu;
+        this.Ma_ThuongHieu = Ma_ThuongHieu;
+        this.tenThuongHieu = tenThuongHieu;
+        this.trangThai = trangThai;
     }
 
-    public Integer getId() {
-        return id;
+    public String getMa_ThuongHieu() {
+        return Ma_ThuongHieu;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMa_ThuongHieu(String Ma_ThuongHieu) {
+        this.Ma_ThuongHieu = Ma_ThuongHieu;
     }
 
-    public String getMa() {
-        return Ma;
+
+    public int getIdThuongHieu() {
+        return idThuongHieu;
     }
 
-    public void setMa(String Ma) {
-        this.Ma = Ma;
+    public void setIdThuongHieu(int idThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
     }
 
-    public String getTen() {
-        return Ten;
+    public String getTenThuongHieu() {
+        return tenThuongHieu;
     }
 
-    public void setTen(String Ten) {
-        this.Ten = Ten;
+    public void setTenThuongHieu(String tenThuongHieu) {
+        this.tenThuongHieu = tenThuongHieu;
     }
 
-    public String getTt() {
-        return tt;
+    public boolean isTrangThai() {
+        return trangThai;
     }
 
-    public void setTt(String tt) {
-        this.tt = tt;
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
     }
-    
+
     
 }
