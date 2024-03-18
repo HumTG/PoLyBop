@@ -22,7 +22,7 @@ public class TKSanPham_repos implements ITKSanPham_repos{
     @Override
     public List<TKSanPham_Model> getTKSanPham() {
         List<TKSanPham_Model> list = new ArrayList<>();
-        String sql = "Select Ma_HoaDon,Ma_HoaDonChiTiet,TenVi,TenThuongHieu,TenXuatXu,TenChatLieu,TenLoaiVi,HoaDonChiTiet.SoLuong as N'Số lượng bán'\n" +
+        String sql = "Select Ma_Vi,Ma_HoaDonChiTiet,TenVi,TenThuongHieu,TenXuatXu,TenChatLieu,TenLoaiVi,HoaDonChiTiet.SoLuong as N'Số lượng bán'\n" +
 "from HoaDon \n" +
 "join HoaDonChiTiet on HoaDonChiTiet.ID_HoaDon = HoaDon.IDHoaDon\n" +
 "join ChiTietVi on (HoaDonChiTiet.ID_ChiTietVi = ChiTietVi.IDChiTietVi)\n" +

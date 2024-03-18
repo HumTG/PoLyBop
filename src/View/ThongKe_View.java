@@ -9,6 +9,7 @@ import Model.HoaDonCT1;
 import Model.TKDoanhThu_View;
 import Model.TKSanPham_View;
 import Model.TKTongQuan_View;
+
 import Service.ITKDoanhThu_service;
 import Service.ITKSanPham_Service;
 import Service.ITKTongQuan_Service;
@@ -31,12 +32,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Windows
  */
 public class ThongKe_View extends javax.swing.JPanel {
-
+    
     SimpleDateFormat dateFM = new SimpleDateFormat("yyyy-MM-dd");
     private JPanel panel;
     DefaultTableModel model;
     ITKSanPham_Service tkSP_sv = new TKSanPham_Service();
     ITKTongQuan_Service tkTQ_Service = new TKTongQuan_service();
+    
 //    ITKDoanhThu_service tKDoanhThu_service = new TKDoanhThu_Service();
 //    ITKThuocTinh_Service tk_TTSP = new TKThuocTinh_Sevice();
 //    ISanPham_Service sp_sv = new SanPham_service();
@@ -51,25 +53,32 @@ public class ThongKe_View extends javax.swing.JPanel {
     public ThongKe_View() {
         initComponents();
         filltblTKSP();
+        
 //        testbarchar(2023);
         txtBatDau.setEnabled(false);
         txtKetThuc.setEnabled(false);
         btnTK.setEnabled(false);
         TKTongQuan_View tk = tkTQ_Service.tkHomNay();
         fillTKTongQuan(tk.getDonHang(), tk.getSanPham(), tk.getDoanhthu());
+        lbdonhang.setText(String.valueOf(tkSP_sv.DonHang()));
+        lblsanpham.setText(String.valueOf(tkSP_sv.SanPham()));
+        lbldoanhthu.setText(String.valueOf(tkSP_sv.DoanhThu()));
+        
     }
     private void fillTKTongQuan(int donHang, int sanPham, float doanhthu) {
         lbldoanhthu.setText(numberFM.format(doanhthu));
         lbdonhang.setText(donHang + "");
         lblsanpham.setText(sanPham + "");
+       
     }
 
     public void filltblTKSP() {
         listTkSP = tkSP_sv.getTKSanPham();
         model = (DefaultTableModel) tbl_TKSP.getModel();
+        
         model.setRowCount(0);
         for (TKSanPham_View t : listTkSP) {
-            model.addRow(new Object[]{t.getMaSP(), t.getMachitiet(), t.getTen(), t.getThuonghieu(), t.getNhasanxuat(), t.getChatlieu(), t.getLoaivi(), t.getSlBan()});
+            model.addRow(new Object[]{t.getMaSP(),t.getTen(), t.getThuonghieu(), t.getNhasanxuat(), t.getChatlieu(), t.getLoaivi(), t.getSlBan()});
         }
     }
     /**
@@ -112,6 +121,7 @@ public class ThongKe_View extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_TKSP = new javax.swing.JTable();
+        txtSanPham = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -291,7 +301,7 @@ public class ThongKe_View extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(26, 26, 26)
                 .addComponent(txtKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addComponent(btnTK)
                 .addGap(18, 18, 18))
         );
@@ -392,28 +402,43 @@ public class ThongKe_View extends javax.swing.JPanel {
 
         tbl_TKSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Sản Phẩm", "Hoá Đơn Chi Tiết", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Sản Xuất", "Chất Liệu", "Loại Ví", "Số Lượng Bán"
+                "Mã Sản Phẩm", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Sản Xuất", "Chất Liệu", "Loại Ví", "Số Lượng Bán"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbl_TKSP);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(427, 427, 427)
+                .addComponent(txtSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 76, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(txtSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sản Phẩm", jPanel6);
@@ -423,26 +448,25 @@ public class ThongKe_View extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboLoaiTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pnlLoaiThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboLoaiTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlLoaiThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(191, 191, 191))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -578,6 +602,7 @@ public class ThongKe_View extends javax.swing.JPanel {
     private javax.swing.JTable tbl_TKSP;
     private com.toedter.calendar.JDateChooser txtBatDau;
     private com.toedter.calendar.JDateChooser txtKetThuc;
+    private javax.swing.JTextField txtSanPham;
     // End of variables declaration//GEN-END:variables
 
 

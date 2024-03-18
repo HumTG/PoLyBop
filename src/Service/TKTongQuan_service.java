@@ -33,5 +33,6 @@ public class TKTongQuan_service implements ITKTongQuan_Service{
         tk.setSanPham(repo.tkTheoNgay(batDau, ketThuc).getSanPham());
         return tk;
     }
+    
 
 }

@@ -14,4 +14,7 @@ import java.util.List;
 public interface ITKSanPham_Service {
     List<TKSanPham_View> getTKSanPham();
     List<TKSanPham_View> getTKSanPham (String batDau, String ketThuc);
+    int DonHang(); 
+    int SanPham();
+    double DoanhThu();
 }
