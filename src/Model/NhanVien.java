@@ -4,42 +4,53 @@
  */
 package Model;
 
-
-import java.util.Date;
 /**
  *
  * @author ADMIN
  */
 public class NhanVien {
+
     private int idNhanVien;
+    private String maNhanVien;
     private String hoTen;
+    private String chucVu;
+    private String ngaySinh;
     private String sdt;
-    private Date ngaySinh;
     private String email;
+    private int gioiTinh;
     private String diaChi;
     private String matKhau;
-    private boolean gioiTinh;
-    private boolean chucVu;
-    private boolean trangThai;
-
+    private int trangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(int idNhanVien, String hoTen, String sdt, Date ngaySinh, String email, String diaChi, String matKhau, boolean gioiTinh, boolean chucVu, boolean trangThai) {
+    public NhanVien(int idNhanVien, String maNhanVien, String hoTen, String chucVu, String ngaySinh, String sdt, String email, int gioiTinh, String diaChi, String matKhau, int trangThai) {
         this.idNhanVien = idNhanVien;
+        this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
-        this.sdt = sdt;
+        this.chucVu = chucVu;
         this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
         this.email = email;
+        this.gioiTinh = gioiTinh;
         this.diaChi = diaChi;
         this.matKhau = matKhau;
-        this.gioiTinh = gioiTinh;
-        this.chucVu = chucVu;
         this.trangThai = trangThai;
     }
 
-    
+    public NhanVien(String maNhanVien, String hoTen, String chucVu, String ngaySinh, String sdt, String email, int gioiTinh, String diaChi, String matKhau, int trangThai) {
+        this.maNhanVien = maNhanVien;
+        this.hoTen = hoTen;
+        this.chucVu = chucVu;
+        this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
+        this.email = email;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.matKhau = matKhau;
+        this.trangThai = trangThai;
+    }
 
     public int getIdNhanVien() {
         return idNhanVien;
@@ -47,6 +58,14 @@ public class NhanVien {
 
     public void setIdNhanVien(int idNhanVien) {
         this.idNhanVien = idNhanVien;
+    }
+
+    public String getMaNhanVien() {
+        return maNhanVien;
+    }
+
+    public void setMaNhanVien(String maNhanVien) {
+        this.maNhanVien = maNhanVien;
     }
 
     public String getHoTen() {
@@ -57,6 +76,22 @@ public class NhanVien {
         this.hoTen = hoTen;
     }
 
+    public String getChucVu() {
+        return chucVu;
+    }
+
+    public void setChucVu(String chucVu) {
+        this.chucVu = chucVu;
+    }
+
+    public String getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(String ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
     public String getSdt() {
         return sdt;
     }
@@ -65,20 +100,20 @@ public class NhanVien {
         this.sdt = sdt;
     }
 
-    public Date getNgaySinh() {
-        return ngaySinh;
-    }
-
-    public void setNgaySinh(Date ngaySinh) {
-        this.ngaySinh = ngaySinh;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(int gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
     public String getDiaChi() {
@@ -97,35 +132,15 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
-    public boolean isGioiTinh() {
-        return gioiTinh;
-    }
-
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
-    }
-
-    public boolean isTrangThai() {
+    public int getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
 
-    public boolean isChucVu() {
-        return chucVu;
+    public Object[] todata() {
+        return new Object[]{maNhanVien, hoTen, chucVu, ngaySinh, sdt, email, gioiTinh, diaChi, matKhau, trangThai};
     }
-
-    public void setChucVu(boolean chucVu) {
-        this.chucVu = chucVu;
-    }
-
-   
-    
-    
-
-    
-    
-    
 }
