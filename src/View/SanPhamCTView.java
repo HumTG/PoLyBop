@@ -4,9 +4,17 @@
  */
 package View;
 
+import Model.ChatLieu;
+import Model.MauSac;
 import Model.SanPhamCT;
+import Model.XuatXu;
+import Repository.Xdate;
+import Service.ChatLieuDao;
+import Service.MauSacDao;
 import Service.SanPhamDAO;
+import Service.XuatXuDao;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,22 +22,57 @@ import javax.swing.table.DefaultTableModel;
  * @author Xuan Dat
  */
 public class SanPhamCTView extends javax.swing.JFrame {
-    
-    DefaultTableModel mol = new DefaultTableModel(); 
-    SanPhamDAO service = new SanPhamDAO() ; 
-    
-    String maVi ; 
+
+    DefaultTableModel mol = new DefaultTableModel();
+    SanPhamDAO service = new SanPhamDAO();
+    XuatXuDao daoxx = new XuatXuDao();
+    MauSacDao daoms = new MauSacDao();
+    ChatLieuDao daocl = new ChatLieuDao();
+
+    List<XuatXu> listXuatXu;
+    List<MauSac> listMauSac;
+    List<ChatLieu> listChatLieu;
+    List<SanPhamCT> listSPCT;
+
+    String maVi;
+
     public SanPhamCTView(String maVi, String tenVi) {
         initComponents();
-        this.maVi = maVi; 
+        init();
+        this.maVi = maVi;
         setLocationRelativeTo(null);
-        txt_tenSP.setText(tenVi);
-        // System.out.println(maVi);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.fillTable(service.getDaTaSPCT(maVi)); 
+        txt_tenSP.setText(tenVi);
+        this.fillTable(service.getDaTaSPCT(maVi));
+
+        // Kiểm tra sản phẩm đã có thông tin chi tiết chưa 
+        if (service.getSoLuongSPCT(maVi) <= 0) {
+            System.out.println("Sản phẩm chưa có thông tin chi tiết");
+        } else {
+            // Sản phẩm đã có thông tin chi tiết 
+            SanPhamCT sanPhamCT = service.getDaTaSPCT(maVi).get(0);
+            txt_MaCTVi.setText(sanPhamCT.getMaCTSP());
+            txt_KhoaVi.setText(sanPhamCT.getKhoaVi());
+            txt_SoLuong.setText(String.valueOf(sanPhamCT.getSoLuongSP()));
+            txt_soNganDungThe.setText(sanPhamCT.getSoNgan());
+            txt_NgayNhap.setDate(Xdate.toDate(sanPhamCT.getNgayNhap(), "yyyy-MM-dd"));
+            txt_giaBan.setText(String.valueOf(sanPhamCT.getGiaBanSP()));
+            txt_giaNhap.setText(String.valueOf(sanPhamCT.getGiaNhapSP()));
+        }
     }
 
     private SanPhamCTView() {
+        initComponents();
+        init();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private void init() {
+        fillcomboboxXuatXu();
+        fillcomboboxMauSac();
+        fillcomboboxChatLieu();
+
     }
 
     /**
@@ -54,7 +97,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
         cbo_chatLieu = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        cbo_xuatXu = new javax.swing.JComboBox<>();
+        cboxuatXu = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cbo_loaiVi = new javax.swing.JComboBox<>();
@@ -71,7 +114,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
         txt_giaBan = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txt_giaNhap = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -114,6 +156,11 @@ public class SanPhamCTView extends javax.swing.JFrame {
         gradientColorCustomKH1.add(cbo_mauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 147, 146, 28));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/plus.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gradientColorCustomKH1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 148, 30, 27));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -124,16 +171,26 @@ public class SanPhamCTView extends javax.swing.JFrame {
         gradientColorCustomKH1.add(cbo_chatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 193, 147, 28));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/plus.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gradientColorCustomKH1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 193, 30, 27));
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setText("Xuất Xứ");
         gradientColorCustomKH1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 63, -1, -1));
 
-        cbo_xuatXu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        gradientColorCustomKH1.add(cbo_xuatXu, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 57, 146, 28));
+        cboxuatXu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        gradientColorCustomKH1.add(cboxuatXu, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 57, 146, 28));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/plus.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gradientColorCustomKH1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(636, 57, 30, 27));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -196,25 +253,20 @@ public class SanPhamCTView extends javax.swing.JFrame {
         txt_giaNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         gradientColorCustomKH1.add(txt_giaNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(488, 289, 209, 28));
 
-        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/plus.png"))); // NOI18N
-        jButton5.setText("Thêm");
-        gradientColorCustomKH1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(732, 58, -1, -1));
-
         jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
         jButton6.setText("Sửa");
-        gradientColorCustomKH1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(732, 98, -1, -1));
+        gradientColorCustomKH1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, -1, -1));
 
         jButton7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
         jButton7.setText("Xóa");
-        gradientColorCustomKH1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(731, 141, -1, -1));
+        gradientColorCustomKH1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
 
         jButton8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-reset-24.png"))); // NOI18N
         jButton8.setText("Làm mới");
-        gradientColorCustomKH1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(731, 190, -1, -1));
+        gradientColorCustomKH1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, -1, -1));
 
         tbl_SanPhamCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,6 +306,21 @@ public class SanPhamCTView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Quản lý xuất xứ sản phẩm 
+        new XuatXuJDiaLog(null, true).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Quản lý màu sắc sản phẩm 
+        new MauSacJDiaLog(null, true).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Quản lý chất liệu 
+        new ChatLieuJDiaLog(null, true).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,13 +362,12 @@ public class SanPhamCTView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbo_chatLieu;
     private javax.swing.JComboBox<String> cbo_loaiVi;
     private javax.swing.JComboBox<String> cbo_mauSac;
-    private javax.swing.JComboBox<String> cbo_xuatXu;
+    private javax.swing.JComboBox<String> cboxuatXu;
     private ColorGradient2D.GradientColorCustomKH gradientColorCustomKH1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -331,22 +397,50 @@ public class SanPhamCTView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillTable(List<SanPhamCT> list) {
-        mol =(DefaultTableModel) tbl_SanPhamCT.getModel(); 
+        mol = (DefaultTableModel) tbl_SanPhamCT.getModel();
         mol.setRowCount(0);
         for (SanPhamCT x : list) {
             mol.addRow(new Object[]{
-                x.getMaCTSP(), 
+                x.getMaCTSP(),
                 x.getTenMauSac(),
                 x.getTenChatLieu(),
-                x.getTenXuatXu() , 
-                x.getTenLoaiVi() , 
-                x.getKhoaVi() , 
-                x.getSoNgan() , 
-                x.getSoLuongSP() , 
-                x.getGiaNhapSP(), 
-                x.getGiaBanSP() , 
+                x.getTenXuatXu(),
+                x.getTenLoaiVi(),
+                x.getKhoaVi(),
+                x.getSoNgan(),
+                x.getSoLuongSP(),
+                x.getGiaNhapSP(),
+                x.getGiaBanSP(),
                 x.getNgayNhap()
             });
         }
     }
+
+    private void fillcomboboxXuatXu() {
+        DefaultComboBoxModel modelxx = (DefaultComboBoxModel) cboxuatXu.getModel();
+        modelxx.removeAllElements();
+        listXuatXu = daoxx.selectAll();
+        for (XuatXu x : listXuatXu) {
+            modelxx.addElement(x.getTenXuatXu());
+        }
+    }
+
+    private void fillcomboboxMauSac() {
+        DefaultComboBoxModel modelMausac = (DefaultComboBoxModel) cbo_mauSac.getModel();
+        modelMausac.removeAllElements();
+        listMauSac = daoms.selectAll();
+        for (MauSac x : listMauSac) {
+            modelMausac.addElement(x.getTenMauSac());
+        }
+    }
+
+    private void fillcomboboxChatLieu() {
+        DefaultComboBoxModel modelChat = (DefaultComboBoxModel) cbo_chatLieu.getModel();
+        modelChat.removeAllElements();
+        listChatLieu = daocl.selectAll();
+        for (ChatLieu x : listChatLieu) {
+            modelChat.addElement(x.getTenChatLieu());
+        }
+    }
+
 }

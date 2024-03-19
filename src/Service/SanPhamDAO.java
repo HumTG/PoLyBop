@@ -142,13 +142,12 @@ public class SanPhamDAO implements InterfaceSanPham {
                 + "join ChatLieu on ChiTietVi.ID_ChatLieu = ChatLieu.IDChatLieu\n"
                 + "join XuatXu on ChiTietVi.ID_XuatXu = XuatXu.IDXuatXu\n"
                 + "join LoaiVi on ChiTietVi.ID_LoaiVi = LoaiVi.IDLoaiVi\n"
-                + "where Vi.Ma_Vi like '"+maSP+"'";
+                + "where Vi.Ma_Vi like '" + maSP + "'";
         List<SanPhamCT> list = new ArrayList<>();
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                SanPhamCT spct = new SanPhamCT
-                        (rs.getString(1),
+                SanPhamCT spct = new SanPhamCT(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -159,12 +158,27 @@ public class SanPhamDAO implements InterfaceSanPham {
                         rs.getDouble(9),
                         rs.getDouble(10),
                         rs.getString(11));
-                list.add(spct); 
+                list.add(spct);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public int getSoLuongSPCT(String maVi) {
+        int SL = 0;
+        String sql = "Select COUNT(Ma_ChiTietVi) from ChiTietVi where ID_Vi = (Select IDVi from Vi where Ma_Vi = '"+maVi+"' )"; 
+        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SL = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SL;
     }
 
 }

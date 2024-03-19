@@ -50,16 +50,14 @@ public class Main extends javax.swing.JFrame {
 
     @Override
     public void paintComponents(Graphics gp) {
-        Graphics2D g2 =(Graphics2D) gp; 
+        Graphics2D g2 = (Graphics2D) gp;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint g = new GradientPaint(0, 0, Color.decode("#8360c3"), 0, getHeight(), Color.decode("#2ebf91"));
         g2.setPaint(g);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        super.paintComponents(gp); 
-     
+        super.paintComponents(gp);
+
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.

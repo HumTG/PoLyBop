@@ -26,5 +26,7 @@ public interface InterfaceSanPham {
     int sumSLSP(int IDCTSP, String maHDCT);
     // lấy ra thông tin sản phẩm chi tiết qua quã sản phẩm 
     List<SanPhamCT> getDaTaSPCT(String maSP);
+    // 
+    int getSoLuongSPCT(String maVi); 
     
 }
