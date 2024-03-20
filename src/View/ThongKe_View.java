@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
+import java.text.DecimalFormat; 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -62,7 +63,10 @@ public class ThongKe_View extends javax.swing.JPanel {
         fillTKTongQuan(tk.getDonHang(), tk.getSanPham(), tk.getDoanhthu());
         lbdonhang.setText(String.valueOf(tkSP_sv.DonHang()));
         lblsanpham.setText(String.valueOf(tkSP_sv.SanPham()));
-        lbldoanhthu.setText(String.valueOf(tkSP_sv.DoanhThu()));
+        // Format tiền 
+        DecimalFormat df = new DecimalFormat("#,###.##"); 
+        String moneyFormat = df.format(tkSP_sv.DoanhThu()); 
+        lbldoanhthu.setText(moneyFormat);
         
     }
     private void fillTKTongQuan(int donHang, int sanPham, float doanhthu) {
