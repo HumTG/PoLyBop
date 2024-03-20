@@ -8,16 +8,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class NhanVienService {
-    
+
     List<NhanVien> listNV;
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     String sql = null;
-      public List<NhanVien> getAll() {
+
+    public List<NhanVien> getAll() {
         listNV = new ArrayList<>();
         sql = "select Ma_NhanVien, HoTen,ChucVu, NgaySinh, SDT, Email, GioiTinh, DiaChi, MatKhau,TrangThai from NhanVien";
         try {
@@ -44,7 +43,8 @@ public class NhanVienService {
             return listNV;
         }
     }
-      public int insertNV(NhanVien nv) {
+
+    public int insertNV(NhanVien nv) {
         sql = "insert into NhanVien(Ma_NhanVien, HoTen, ChucVu, NgaySinh, SDT, Email, GioiTinh, DiaChi, MatKhau, TrangThai) values (?,?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -54,17 +54,40 @@ public class NhanVienService {
             ps.setString(2, nv.getHoTen());
             ps.setString(3, nv.getChucVu());
             ps.setString(4, nv.getNgaySinh());
-            ps.setString(5,  nv.getSdt());
-            ps.setString(6,  nv.getEmail());
-            ps.setInt(7,  nv.getGioiTinh());
-            ps.setString(8,  nv.getDiaChi());
-            ps.setString(9,  nv.getMatKhau());
-            ps.setInt(10,  nv.getTrangThai());
+            ps.setString(5, nv.getSdt());
+            ps.setString(6, nv.getEmail());
+            ps.setInt(7, nv.getGioiTinh());
+            ps.setString(8, nv.getDiaChi());
+            ps.setString(9, nv.getMatKhau());
+            ps.setInt(10, nv.getTrangThai());
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public int updateNV(String ma, NhanVien nv) {
+        sql = "update NhanVien set HoTen = ?, ChucVu = ?, NgaySinh = ?, SDT = ?, Email = ?, GioiTinh = ?, DiaChi = ?, MatKhau = ?, TrangThai = ? where Ma_NhanVien like ?";
+        try {
+            con = DBconnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nv.getHoTen());
+            ps.setString(2, nv.getChucVu());
+            ps.setString(3, nv.getNgaySinh());
+            ps.setString(4, nv.getSdt());
+            ps.setString(5, nv.getEmail());
+            ps.setInt(6, nv.getGioiTinh());
+            ps.setString(7, nv.getDiaChi());
+            ps.setString(8, nv.getMatKhau());
+            ps.setInt(9, nv.getTrangThai());
+            ps.setString(10, ma);
+            return ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     public int deletteNV(String ma) {
@@ -74,29 +97,6 @@ public class NhanVienService {
             ps = con.prepareStatement(sql);
             ps.setString(1, ma);
             return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    public int updateNV(String ma, NhanVien nv) {
-        sql = "update NhanVien set HoTen=?, ChucVu=?, NgaySinh=?, SDT=?, Email=?, GioiTinh=?, DiaChi=?, MatKhau=?, TrangThai=?\n" +"where Ma_NhanVien like ?";
-        try {
-            con = DBconnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, nv.getHoTen());
-            ps.setString(2, nv.getChucVu());
-            ps.setString(3, nv.getNgaySinh());
-            ps.setString(4,  nv.getSdt());
-            ps.setString(5,  nv.getEmail());
-            ps.setInt(6,  nv.getGioiTinh());
-            ps.setString(7,  nv.getDiaChi());
-            ps.setString(8,  nv.getMatKhau());
-            ps.setInt(9,  nv.getTrangThai());
-            ps.setString(1, ma);
-            return ps.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
