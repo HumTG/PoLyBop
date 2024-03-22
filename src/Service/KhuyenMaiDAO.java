@@ -9,6 +9,7 @@ import Repository.DBconnect;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -24,14 +25,13 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai{
                 + "      ,[GiaTri]\n"
                 + "      ,[NgayBatDau]\n"
                 + "      ,[NgayKetThuc]\n"
-                + "      ,[KieuGiamGia]\n"
                 + "      ,[TrangThai]\n"
                 + "  FROM [dbo].[KhuyenMai]";
         List<KhuyenMai> listKM = new ArrayList<>();
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getInt(6), rs.getBoolean(7));
+                KhuyenMai km = new KhuyenMai(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getString(6));
                 listKM.add(km);
             }
         } catch (Exception e) {
@@ -53,5 +53,24 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai{
             e.printStackTrace();
         }
         return giaTri; 
+    }
+    public int addKhuenMai(KhuyenMai km){
+        String sql = "INSERT INTO [KHUYENMAI] (Ma_KhuyenMai, GiaTri, NgayBatDau, NgayKetThuc, TrangThai) VALUES (?, ?, ?, ?, ?)";
+        try{
+            Connection con = DBconnect.getConnection();
+            PreparedStatement ps = con.prepareCall(sql);
+            ps.setString(1, km.getMa());
+            ps.setInt(2, km.getGiaTri());
+            ps.setDate(3, (Date) km.getNgayBatDau());
+            ps.setDate(4, (Date) km.getNgayKetThuc());
+            ps.setString(5, km.isTrangThai());
+            
+            return ps.executeUpdate();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+         
     }
 }

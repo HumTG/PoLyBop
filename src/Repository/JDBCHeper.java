@@ -18,7 +18,7 @@ public class JDBCHeper {
    static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
    static String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=PoLyBop";
    static String user ="sa";// đây là tài khoản, ở đây mình sẽ đổi thành admin
-   static String password ="123456";// đây là mật khẩu
+   static String password ="123";// đây là mật khẩu
 
 //    static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 //    static String url = "jdbc:sqlserver://127.0.0.1:1433;databaseName=QUANLYCAPHEBANME";//kết nối db

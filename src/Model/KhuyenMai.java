@@ -16,22 +16,29 @@ public class KhuyenMai {
     private int giaTri;
     private Date ngayBatDau;
     private Date ngayKetThuc;
-    private int kieuGiamGia;
-    private boolean trangThai;
+    private String trangThai;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(int id, String ma, int giaTri, Date ngayBatDau, Date ngayKetThuc, int kieuGiamGia, boolean trangThai) {
+    public KhuyenMai(String ma, int giaTri, Date ngayBatDau, Date ngayKetThuc,  String trangThai) {
+        this.ma = ma;
+        this.giaTri = giaTri;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.trangThai = trangThai;
+    }
+
+    
+    public KhuyenMai(int id, String ma, int giaTri, Date ngayBatDau, Date ngayKetThuc,  String trangThai) {
         this.id = id;
         this.ma = ma;
         this.giaTri = giaTri;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
-        this.kieuGiamGia = kieuGiamGia;
         this.trangThai = trangThai;
     }
-
+   
     public int getId() {
         return id;
     }
@@ -71,23 +78,17 @@ public class KhuyenMai {
     public void setNgayKetThuc(Date ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
     }
-
-    public int getKieuGiamGia() {
-        return kieuGiamGia;
-    }
-
-    public void setKieuGiamGia(int kieuGiamGia) {
-        this.kieuGiamGia = kieuGiamGia;
-    }
-
-    public boolean isTrangThai() {
+    public String isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 
-   
-    
+   public Object[] toDataRow(){
+      return new Object[]{
+           this.id, this.ma, this.giaTri, this.ngayBatDau, this.ngayKetThuc, this.trangThai
+       };
+   }   
 }
