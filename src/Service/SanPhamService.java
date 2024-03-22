@@ -5,6 +5,8 @@
 package Service;
 
 import Model.SanPham;
+import Model.SanPhamCT;
+import Model.Vi;
 import java.util.List;
 import Repository.ViRepository;
 
@@ -14,7 +16,15 @@ import Repository.ViRepository;
  */
 public class SanPhamService {
     ViRepository viRepository;
+    SanPhamDAO sanPhamDAO = new SanPhamDAO();
     public List<SanPham> getAll(){
         return viRepository.getAll();
+    }
+    public String delete(Vi id) {
+        if (sanPhamDAO.delCTV(id)==true) {
+            return "dax xoa";
+        } else {
+            return "That bajt";
+        }
     }
 }

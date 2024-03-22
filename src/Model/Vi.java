@@ -24,6 +24,10 @@ public class Vi {
     public Vi() {
     }
 
+    public Vi(String TenVi) {
+        this.TenVi = TenVi;
+    }
+
 
     public Vi(int IDVi, int ID_ThuongHieu, String Ma_Vi, String KieuDang, String TenVi, String Url_Anh, boolean TrangThai,double giaBan) {
         this.IDVi = IDVi;

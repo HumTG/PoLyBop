@@ -35,6 +35,10 @@ public class SanPham {
         this.mauSac = mauSac;
     }
 
+    public SanPham(String tenVi) {
+        this.tenVi = tenVi;
+    }
+
     
 
     

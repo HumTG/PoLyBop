@@ -6,6 +6,7 @@ package Service;
 
 import Model.SanPham;
 import Model.SanPhamCT;
+import Model.Vi;
 import Repository.DBconnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -181,4 +182,13 @@ public class SanPhamDAO implements InterfaceSanPham {
         return SL;
     }
 
+    public Boolean delCTV(Vi id) {
+        String sql = "UPDATE Vi set TRANGTHAI = 0 WHERE TenVi = ?";
+        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, id.getTenVi());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

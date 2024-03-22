@@ -5,16 +5,23 @@
 package View;
 
 import Model.ChatLieu;
+import Model.LoaiVi;
 import Model.MauSac;
+import Model.SanPham;
 import Model.SanPhamCT;
+import Model.Vi;
 import Model.XuatXu;
 import Repository.Xdate;
 import Service.ChatLieuDao;
+import Service.LoaiViDao;
 import Service.MauSacDao;
 import Service.SanPhamDAO;
+import Service.SanPhamService;
+import Service.TKSanPham_Service;
 import Service.XuatXuDao;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,10 +35,14 @@ public class SanPhamCTView extends javax.swing.JFrame {
     XuatXuDao daoxx = new XuatXuDao();
     MauSacDao daoms = new MauSacDao();
     ChatLieuDao daocl = new ChatLieuDao();
+    LoaiViDao daolv = new LoaiViDao();
+    TKSanPham_Service service1 = new TKSanPham_Service();
+    SanPhamService ser = new SanPhamService();
 
     List<XuatXu> listXuatXu;
     List<MauSac> listMauSac;
     List<ChatLieu> listChatLieu;
+    List<LoaiVi> listLoaiVi;
     List<SanPhamCT> listSPCT;
 
     String maVi;
@@ -72,7 +83,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
         fillcomboboxXuatXu();
         fillcomboboxMauSac();
         fillcomboboxChatLieu();
-
+        fillcomboboxLoaiVi();
     }
 
     /**
@@ -114,9 +125,9 @@ public class SanPhamCTView extends javax.swing.JFrame {
         txt_giaBan = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txt_giaNhap = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_SanPhamCT = new javax.swing.JTable();
 
@@ -201,6 +212,11 @@ public class SanPhamCTView extends javax.swing.JFrame {
         gradientColorCustomKH1.add(cbo_loaiVi, new org.netbeans.lib.awtextra.AbsoluteConstraints(483, 104, 146, 28));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/plus.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         gradientColorCustomKH1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 106, 30, 27));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -253,20 +269,30 @@ public class SanPhamCTView extends javax.swing.JFrame {
         txt_giaNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         gradientColorCustomKH1.add(txt_giaNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(488, 289, 209, 28));
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
-        jButton6.setText("Sửa");
-        gradientColorCustomKH1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, -1, -1));
+        btnSua.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Edit.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        gradientColorCustomKH1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, -1, -1));
 
-        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
-        jButton7.setText("Xóa");
-        gradientColorCustomKH1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
+        btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaMouseClicked(evt);
+            }
+        });
+        gradientColorCustomKH1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
 
-        jButton8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-reset-24.png"))); // NOI18N
-        jButton8.setText("Làm mới");
-        gradientColorCustomKH1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, -1, -1));
+        btnLamMoi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-reset-24.png"))); // NOI18N
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+        gradientColorCustomKH1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, -1, -1));
 
         tbl_SanPhamCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -322,6 +348,51 @@ public class SanPhamCTView extends javax.swing.JFrame {
         new ChatLieuJDiaLog(null, true).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        new LoaiViJDiaLog(null, true).setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        lammoi();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+        // TODO add your handling code here:
+        String ten = txt_tenSP.getText();
+        String soNDT = txt_soNganDungThe.getText();
+        String khoa = txt_KhoaVi.getText();
+        String ma = txt_MaCTVi.getText();
+        String sl = txt_SoLuong.getText();
+        String gBan = txt_giaBan.getText();
+        String gNhap = txt_giaNhap.getText();
+        Vi v = new Vi(ten);
+        String kq = ser.delete(v);
+        JOptionPane.showMessageDialog(this, kq);
+        fillTable(service.getDaTaSPCT(ma));
+    }//GEN-LAST:event_btnXoaMouseClicked
+
+    private void selectMaxIDLSP() {
+        if (service1.getTKSanPham().isEmpty()) {
+            txt_MaCTVi.setText("CTV001");
+        } else {
+            txt_MaCTVi.setText("CTV0" + (service1.select_Max_id_java()+ 1));
+        }
+    }
+
+    private void lammoi() {
+        txt_MaCTVi.setText("");
+        txt_KhoaVi.setText("");
+//        txt_NgayNhap.setDate("");
+        txt_SoLuong.setText("");
+        txt_giaBan.setText("");
+        txt_giaNhap.setText("");
+        txt_soNganDungThe.setText("");
+        txt_tenSP.setText("");
+        selectMaxIDLSP();
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -359,6 +430,9 @@ public class SanPhamCTView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbo_chatLieu;
     private javax.swing.JComboBox<String> cbo_loaiVi;
     private javax.swing.JComboBox<String> cbo_mauSac;
@@ -368,9 +442,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -440,6 +511,15 @@ public class SanPhamCTView extends javax.swing.JFrame {
         listChatLieu = daocl.selectAll();
         for (ChatLieu x : listChatLieu) {
             modelChat.addElement(x.getTenChatLieu());
+        }
+    }
+    
+    private void fillcomboboxLoaiVi() {
+        DefaultComboBoxModel modelChat = (DefaultComboBoxModel) cbo_loaiVi.getModel();
+        modelChat.removeAllElements();
+        listLoaiVi = daolv.selectAll();
+        for (LoaiVi lv : listLoaiVi) {
+            modelChat.addElement(lv.getTenLoaiVi());
         }
     }
 

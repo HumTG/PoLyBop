@@ -7,6 +7,7 @@ package Service;
 import Model.TKSanPham_Model;
 import Model.TKSanPham_View;
 import Repository.DBconnect;
+import Repository.JDBCHeper;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*; 
@@ -32,6 +33,19 @@ public class TKSanPham_Service implements ITKSanPham_Service {
 
         }
         return list_view;
+    }
+//    
+    public int select_Max_id_java() {
+        try {
+            String sql = "select max(cast(substring(Ma_ChiTietVi,4,LEN(IDChiTietVi))as int)) from ChiTietVi ";
+            ResultSet rs = JDBCHeper.query(sql);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
