@@ -69,6 +69,10 @@ public class SanPhamCTView extends javax.swing.JFrame {
             txt_NgayNhap.setDate(Xdate.toDate(sanPhamCT.getNgayNhap(), "yyyy-MM-dd"));
             txt_giaBan.setText(String.valueOf(sanPhamCT.getGiaBanSP()));
             txt_giaNhap.setText(String.valueOf(sanPhamCT.getGiaNhapSP()));
+            cboxuatXu.setSelectedItem(sanPhamCT.getTenXuatXu());
+            cbo_loaiVi.setSelectedItem(sanPhamCT.getTenLoaiVi());
+            cbo_mauSac.setSelectedItem(sanPhamCT.getTenMauSac());
+            cbo_chatLieu.setSelectedItem(sanPhamCT.getTenChatLieu());
         }
     }
 
@@ -126,7 +130,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         txt_giaNhap = new javax.swing.JTextField();
         btnSua = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_SanPhamCT = new javax.swing.JTable();
@@ -274,16 +277,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
         btnSua.setText("Sửa");
         gradientColorCustomKH1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, -1, -1));
 
-        btnXoa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
-        btnXoa.setText("Xóa");
-        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnXoaMouseClicked(evt);
-            }
-        });
-        gradientColorCustomKH1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
-
         btnLamMoi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-reset-24.png"))); // NOI18N
         btnLamMoi.setText("Làm mới");
@@ -292,7 +285,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
                 btnLamMoiActionPerformed(evt);
             }
         });
-        gradientColorCustomKH1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, -1, -1));
+        gradientColorCustomKH1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
 
         tbl_SanPhamCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -358,21 +351,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
         lammoi();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
-    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        // TODO add your handling code here:
-        String ten = txt_tenSP.getText();
-        String soNDT = txt_soNganDungThe.getText();
-        String khoa = txt_KhoaVi.getText();
-        String ma = txt_MaCTVi.getText();
-        String sl = txt_SoLuong.getText();
-        String gBan = txt_giaBan.getText();
-        String gNhap = txt_giaNhap.getText();
-        Vi v = new Vi(ten);
-        String kq = ser.delete(v);
-        JOptionPane.showMessageDialog(this, kq);
-        fillTable(service.getDaTaSPCT(ma));
-    }//GEN-LAST:event_btnXoaMouseClicked
-
     private void selectMaxIDLSP() {
         if (service1.getTKSanPham().isEmpty()) {
             txt_MaCTVi.setText("CTV001");
@@ -432,7 +410,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSua;
-    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbo_chatLieu;
     private javax.swing.JComboBox<String> cbo_loaiVi;
     private javax.swing.JComboBox<String> cbo_mauSac;
