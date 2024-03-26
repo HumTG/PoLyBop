@@ -583,7 +583,7 @@ public class KhachHangView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm mới thất bại");
 
             }
-        
+
     }
     
     private boolean isValidPhoneNumber(String phoneNumber) {
@@ -605,7 +605,6 @@ public class KhachHangView extends javax.swing.JPanel {
                 return true; // Phone number already exists in the table
             }
         }
-
         return false; // Phone number is not a duplicate
     }
     

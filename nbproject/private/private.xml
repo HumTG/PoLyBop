@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/KhuyenMaiView.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/Main.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/SanPhamCTView.java</file>
+            <file>file:/G:/CodeGitClone/PoLyBop/src/View/KhachHangView.java</file>
+            <file>file:/G:/CodeGitClone/PoLyBop/src/Service/NhanVienService.java</file>
+            <file>file:/G:/CodeGitClone/PoLyBop/src/View/NhanVienView.java</file>
+            <file>file:/G:/CodeGitClone/PoLyBop/src/View/Main.java</file>
+            <file>file:/G:/CodeGitClone/PoLyBop/src/Model/KhachHang.java</file>
         </group>
     </open-files>
 </project-private>

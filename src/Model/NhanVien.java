@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author ADMIN
@@ -14,18 +16,18 @@ public class NhanVien {
     private String maNhanVien;
     private String hoTen;
     private String chucVu;
-    private String ngaySinh;
+    private Date ngaySinh;
     private String sdt;
     private String email;
-    private int gioiTinh;
+    private boolean gioiTinh;
     private String diaChi;
     private String matKhau;
-    private int trangThai;
+    private boolean trangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(int idNhanVien, String maNhanVien, String hoTen, String chucVu, String ngaySinh, String sdt, String email, int gioiTinh, String diaChi, String matKhau, int trangThai) {
+    public NhanVien(int idNhanVien, String maNhanVien, String hoTen, String chucVu, Date ngaySinh, String sdt, String email, boolean gioiTinh, String diaChi, String matKhau, boolean trangThai) {
         this.idNhanVien = idNhanVien;
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
@@ -39,7 +41,7 @@ public class NhanVien {
         this.trangThai = trangThai;
     }
 
-    public NhanVien(String maNhanVien, String hoTen, String chucVu, String ngaySinh, String sdt, String email, int gioiTinh, String diaChi, String matKhau, int trangThai) {
+    public NhanVien(String maNhanVien, String hoTen, String chucVu, Date ngaySinh, String sdt, String email, boolean gioiTinh, String diaChi, String matKhau, boolean trangThai) {
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
         this.chucVu = chucVu;
@@ -84,11 +86,11 @@ public class NhanVien {
         this.chucVu = chucVu;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -108,11 +110,11 @@ public class NhanVien {
         this.email = email;
     }
 
-    public int getGioiTinh() {
+    public boolean isGioiTinh() {
         return gioiTinh;
     }
 
-    public void setGioiTinh(int gioiTinh) {
+    public void setGioiTinh(boolean gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
 
@@ -132,18 +134,20 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
-    public int getTrangThai() {
+    public boolean isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(int trangThai) {
+    public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
 
-    public Object[] todata() {
-        return new Object[]{maNhanVien, hoTen, chucVu, ngaySinh, sdt, email, gioiTinh, diaChi, matKhau, trangThai};
+    
+    public Object[] todata(){
+        return new Object[]{maNhanVien, hoTen, chucVu, ngaySinh, sdt, email, isGioiTinh()? "Nam" : "Nữ",diaChi, matKhau,isTrangThai()? "Đang hoạt động" : "Không hoạt động"};
     }
 
+    
     public boolean isChucVu() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
