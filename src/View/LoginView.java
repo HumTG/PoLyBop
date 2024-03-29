@@ -30,7 +30,6 @@ public class LoginView extends javax.swing.JFrame {
         txt_Pass.setText("");
     }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,11 +302,20 @@ public class LoginView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        LoadingFrame lf = new LoadingFrame();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginView().setVisible(true);
             }
         });
+        try {
+            for (int i = 0; i <= 100; i++) {
+                Thread.sleep(50);
+              //   lf.jProgressBar1.setValue(i);
+
+            }
+        } catch (Exception e) {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -377,6 +385,7 @@ public class LoginView extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công dưới quyền quản lý");
                                 Main m = new Main(txt_Email.getText(), service.getNameNV(txt_Email.getText()), 1);
                                 m.setVisible(true);
+                                new LoadingFrame().setVisible(true);
                                 this.dispose();
                             } else {
                                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công dưới quyền nhân viên");

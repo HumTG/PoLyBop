@@ -69,10 +69,10 @@ public class SanPhamCTView extends javax.swing.JFrame {
             txt_NgayNhap.setDate(Xdate.toDate(sanPhamCT.getNgayNhap(), "yyyy-MM-dd"));
             txt_giaBan.setText(String.valueOf(sanPhamCT.getGiaBanSP()));
             txt_giaNhap.setText(String.valueOf(sanPhamCT.getGiaNhapSP()));
-//            cbo_xuatXu.setSelectedItem(sanPhamCT.getTenXuatXu().toString());
-//            cbo_loaiVi.setSelectedItem(sanPhamCT.getTenLoaiVi().toString());
-//            cbo_mauSac.setSelectedItem(sanPhamCT.getTenMauSac().toString());
-//            cbo_chatLieu.setSelectedItem(sanPhamCT.getTenChatLieu().toString());
+            cbo_xuatXu.setSelectedItem(sanPhamCT.getTenXuatXu());
+            cbo_loaiVi.setSelectedItem(sanPhamCT.getTenLoaiVi());
+            cbo_mauSac.setSelectedItem(sanPhamCT.getTenMauSac());
+            cbo_chatLieu.setSelectedItem(sanPhamCT.getTenChatLieu());
         }
     }
 
@@ -368,34 +368,34 @@ public class SanPhamCTView extends javax.swing.JFrame {
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         // TODO add your handling code here
-        
+
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        update();
+        //  update();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tbl_SanPhamCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_SanPhamCTMouseClicked
         // TODO add your handling code here:
-        int i = tbl_SanPhamCT.getSelectedRow();
-        txt_MaCTVi.setText(tbl_SanPhamCT.getValueAt(i, 0).toString());
-        cbo_mauSac.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 1).toString());
-        cbo_chatLieu.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 2).toString());
-        cbo_xuatXu.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 3).toString());
-        cbo_loaiVi.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 4).toString());
-        txt_KhoaVi.setText(tbl_SanPhamCT.getValueAt(i, 5).toString());
-        txt_soNganDungThe.setText(tbl_SanPhamCT.getValueAt(i, 6).toString());
-        txt_SoLuong.setText(tbl_SanPhamCT.getValueAt(i, 7).toString());
-        txt_giaNhap.setText(tbl_SanPhamCT.getValueAt(i, 8).toString());
-        txt_giaBan.setText(tbl_SanPhamCT.getValueAt(i, 9).toString());
+//        int i = tbl_SanPhamCT.getSelectedRow();
+//        txt_MaCTVi.setText(tbl_SanPhamCT.getValueAt(i, 0).toString());
+//        cbo_mauSac.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 1).toString());
+//        cbo_chatLieu.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 2).toString());
+//        cbo_xuatXu.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 3).toString());
+//        cbo_loaiVi.setSelectedItem(tbl_SanPhamCT.getValueAt(i, 4).toString());
+//        txt_KhoaVi.setText(tbl_SanPhamCT.getValueAt(i, 5).toString());
+//        txt_soNganDungThe.setText(tbl_SanPhamCT.getValueAt(i, 6).toString());
+//        txt_SoLuong.setText(tbl_SanPhamCT.getValueAt(i, 7).toString());
+//        txt_giaNhap.setText(tbl_SanPhamCT.getValueAt(i, 8).toString());
+//        txt_giaBan.setText(tbl_SanPhamCT.getValueAt(i, 9).toString());
     }//GEN-LAST:event_tbl_SanPhamCTMouseClicked
 
     private void selectMaxIDLSP() {
         if (service1.getTKSanPham().isEmpty()) {
             txt_MaCTVi.setText("CTV001");
         } else {
-            txt_MaCTVi.setText("CTV0"+(service1.select_Max_id_java()+ 1));
+            txt_MaCTVi.setText("CTV0" + (service1.select_Max_id_java() + 1));
         }
     }
 
@@ -411,6 +411,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
         selectMaxIDLSP();
 
     }
+
     /**
      * @param args the command line arguments
      */
@@ -490,10 +491,10 @@ public class SanPhamCTView extends javax.swing.JFrame {
         for (SanPhamCT x : list) {
             mol.addRow(new Object[]{
                 x.getMaCTSP(),
-                daoms.selecNameById(x.getTenMauSac()),
-                daocl.selectNameById(x.getTenChatLieu()),
-                daoxx.selectNameByID(x.getTenXuatXu()),
-                daolv.selecNameById(x.getTenLoaiVi()),
+                x.getTenMauSac(),
+                x.getTenChatLieu(),
+                x.getTenXuatXu(),
+                x.getTenLoaiVi(),
                 x.getKhoaVi(),
                 x.getSoNgan(),
                 x.getSoLuongSP(),
@@ -530,7 +531,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
             modelChat.addElement(x.getTenChatLieu());
         }
     }
-    
+
     private void fillcomboboxLoaiVi() {
         DefaultComboBoxModel modelChat = (DefaultComboBoxModel) cbo_loaiVi.getModel();
         modelChat.removeAllElements();
@@ -539,13 +540,14 @@ public class SanPhamCTView extends javax.swing.JFrame {
             modelChat.addElement(lv.getTenLoaiVi());
         }
     }
+
     private void update() {
         try {
             if (MsgBox.confirm(this, "Bạn có muốn sửa sản phẩm ?")) {
                 SanPhamCT sp = getInformation();
                 service.update(sp);
-                 this.maVi = maVi;
-                 this.fillTable(service.getDaTaSPCT(maVi));
+                this.maVi = maVi;
+                this.fillTable(service.getDaTaSPCT(maVi));
                 lammoi();
                 JOptionPane.showMessageDialog(this, "Đã sửa");
             } else ;
@@ -554,23 +556,24 @@ public class SanPhamCTView extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    private SanPhamCT getInformation(){
+
+    private SanPhamCT getInformation() {
         SanPhamCT sp = new SanPhamCT();
-                sp.setMaCTSP(txt_MaCTVi.getText());
-                sp.setGiaBanSP(Double.parseDouble(txt_giaBan.getText()));
-                sp.setGiaNhapSP(Double.parseDouble(txt_giaNhap.getText()));
-                sp.setSoLuongSP(Integer.parseInt(txt_SoLuong.getText()));
-                
-                sp.setTenChatLieu(daocl.selectIdByName(cbo_chatLieu.getSelectedItem() + ""));
-                sp.setTenLoaiVi(daolv.selectIdByName(cbo_loaiVi.getSelectedItem() + ""));
-                
-                sp.setTenMauSac(daoms.selectIdByName(cbo_mauSac.getSelectedItem() + ""));
-                
-                sp.setTenXuatXu(daoxx.selectIdByName(cbo_xuatXu.getSelectedItem() + ""));
-                sp.setKhoaVi(txt_KhoaVi.getText());
-                sp.setNgayNhap(txt_NgayNhap.getDateFormatString());
-                sp.setSoNgan(txt_soNganDungThe.getText());
-                return sp;
+        sp.setMaCTSP(txt_MaCTVi.getText());
+        sp.setGiaBanSP(Double.parseDouble(txt_giaBan.getText()));
+        sp.setGiaNhapSP(Double.parseDouble(txt_giaNhap.getText()));
+        sp.setSoLuongSP(Integer.parseInt(txt_SoLuong.getText()));
+
+//        sp.setTenChatLieu(daocl.selectIdByName(cbo_chatLieu.getSelectedItem() + ""));
+//        sp.setTenLoaiVi(daolv.selectIdByName(cbo_loaiVi.getSelectedItem() + ""));
+//
+//        sp.setTenMauSac(daoms.selectIdByName(cbo_mauSac.getSelectedItem() + ""));
+//
+//        sp.setTenXuatXu(daoxx.selectIdByName(cbo_xuatXu.getSelectedItem() + ""));
+        sp.setKhoaVi(txt_KhoaVi.getText());
+        sp.setNgayNhap(txt_NgayNhap.getDateFormatString());
+        sp.setSoNgan(txt_soNganDungThe.getText());
+        return sp;
     }
 
 }

@@ -137,25 +137,25 @@ public class SanPhamDAO implements InterfaceSanPham {
     // lấy ra thông tin chi tiết của sản phẩm thông qua mã sản phẩm 
     @Override
     public List<SanPhamCT> getDaTaSPCT(String maSP) {
-        String sql = "SELECT Ma_ChiTietVi,ID_MauSac,ID_ChatLieu,\n"
-                + "ID_XuatXu,ID_LoaiVi,KhoaVi,SoNganDungThe,\n"
+        String sql = "SELECT Ma_ChiTietVi,TenMauSac,TenChatLieu,\n"
+                + "TenXuatXu,TenLoaiVi,KhoaVi,SoNganDungThe,\n"
                 + "SoLuong,GiaNhap,ChiTietVi.GiaBan,NgayNhap\n"
                 + "from ChiTietVi \n"
                 + "join Vi on ChiTietVi.ID_Vi = Vi.IDVi\n"
-//                + "join MauSac on ChiTietVi.ID_MauSac = MauSac.IDMauSac\n"
-//                + "join ChatLieu on ChiTietVi.ID_ChatLieu = ChatLieu.IDChatLieu\n"
-//                + "join XuatXu on ChiTietVi.ID_XuatXu = XuatXu.IDXuatXu\n"
-//                + "join LoaiVi on ChiTietVi.ID_LoaiVi = LoaiVi.IDLoaiVi\n"
+                + "join MauSac on ChiTietVi.ID_MauSac = MauSac.IDMauSac\n"
+                + "join ChatLieu on ChiTietVi.ID_ChatLieu = ChatLieu.IDChatLieu\n"
+                + "join XuatXu on ChiTietVi.ID_XuatXu = XuatXu.IDXuatXu\n"
+                + "join LoaiVi on ChiTietVi.ID_LoaiVi = LoaiVi.IDLoaiVi\n"
                 + "where Vi.Ma_Vi like '" + maSP + "'";
         List<SanPhamCT> list = new ArrayList<>();
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPhamCT spct = new SanPhamCT(rs.getString(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getInt(4),
-                        rs.getInt(5),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
                         rs.getInt(8),

@@ -10,10 +10,10 @@ package Model;
  */
 public class SanPhamCT {
     private String maCTSP; 
-    private Integer tenMauSac ; 
-    private Integer tenChatLieu ;
-    private Integer tenXuatXu ; 
-    private Integer tenLoaiVi ; 
+    private String tenMauSac ; 
+    private String tenChatLieu ;
+    private String tenXuatXu ; 
+    private String tenLoaiVi ; 
     private String khoaVi ; 
     private String soNgan ; 
     private int soLuongSP ; 
@@ -25,7 +25,7 @@ public class SanPhamCT {
     }
 
     
-    public SanPhamCT(String maCTSP, Integer tenMauSac, Integer tenChatLieu, Integer tenXuatXu, Integer tenLoaiVi, String khoaVi, String soNgan, int soLuongSP, double giaNhapSP, double giaBanSP, String ngayNhap) {
+    public SanPhamCT(String maCTSP, String tenMauSac, String tenChatLieu, String tenXuatXu, String tenLoaiVi, String khoaVi, String soNgan, int soLuongSP, double giaNhapSP, double giaBanSP, String ngayNhap) {
         this.maCTSP = maCTSP;
         this.tenMauSac = tenMauSac;
         this.tenChatLieu = tenChatLieu;
@@ -47,37 +47,39 @@ public class SanPhamCT {
         this.maCTSP = maCTSP;
     }
 
-    public Integer getTenMauSac() {
+    public String getTenMauSac() {
         return tenMauSac;
     }
 
-    public void setTenMauSac(Integer tenMauSac) {
+    public void setTenMauSac(String tenMauSac) {
         this.tenMauSac = tenMauSac;
     }
 
-    public Integer getTenChatLieu() {
+    public String getTenChatLieu() {
         return tenChatLieu;
     }
 
-    public void setTenChatLieu(Integer tenChatLieu) {
+    public void setTenChatLieu(String tenChatLieu) {
         this.tenChatLieu = tenChatLieu;
     }
 
-    public Integer getTenXuatXu() {
+    public String getTenXuatXu() {
         return tenXuatXu;
     }
 
-    public void setTenXuatXu(Integer tenXuatXu) {
+    public void setTenXuatXu(String tenXuatXu) {
         this.tenXuatXu = tenXuatXu;
     }
 
-    public Integer getTenLoaiVi() {
+    public String getTenLoaiVi() {
         return tenLoaiVi;
     }
 
-    public void setTenLoaiVi(Integer tenLoaiVi) {
+    public void setTenLoaiVi(String tenLoaiVi) {
         this.tenLoaiVi = tenLoaiVi;
     }
+
+
 
     public String getKhoaVi() {
         return khoaVi;

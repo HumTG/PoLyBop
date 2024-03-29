@@ -762,7 +762,7 @@ public class SanPhamView extends javax.swing.JPanel {
 //            System.out.println("getName : " + filechoser.getName());
         }
     }
-
+//
     private Vi getInformation() {
         Vi sp = new Vi();
 //        sp.setIDVi(Integer.parseInt(txtMaVi.getText()));
