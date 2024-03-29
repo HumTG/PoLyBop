@@ -6,8 +6,8 @@ package Service;
 
 import Model.TKTongQuan_Model;
 import Model.TKTongQuan_View;
-import Repository.ITKTongQuan_Repos;
-import Repository.TKTongQuan_Repos;
+import Service.ITKTongQuan_Repos;
+import Service.TKTongQuan_Repos;
 
 /**
  *
@@ -33,6 +33,5 @@ public class TKTongQuan_service implements ITKTongQuan_Service{
         tk.setSanPham(repo.tkTheoNgay(batDau, ketThuc).getSanPham());
         return tk;
     }
-    
 
 }

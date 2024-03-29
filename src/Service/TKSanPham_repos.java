@@ -5,24 +5,22 @@
 package Service;
 
 import Model.TKSanPham_Model;
-import Repository.DBconnect;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import Repository.JDBCHeper;
 
 /**
  *
  * @author Windows
  */
-public class TKSanPham_repos implements ITKSanPham_repos{    
+public class TKSanPham_repos implements ITKSanPham_repos{
+
     @Override
     public List<TKSanPham_Model> getTKSanPham() {
         List<TKSanPham_Model> list = new ArrayList<>();
-        String sql = "Select Ma_Vi,Ma_HoaDonChiTiet,TenVi,TenThuongHieu,TenXuatXu,TenChatLieu,TenLoaiVi,HoaDonChiTiet.SoLuong as N'Số lượng bán'\n" +
+        String sql = "Select Ma_HoaDon,Ma_HoaDonChiTiet,TenVi,TenThuongHieu,TenXuatXu,TenChatLieu,TenLoaiVi,HoaDonChiTiet.SoLuong as N'Số lượng bán'\n" +
 "from HoaDon \n" +
 "join HoaDonChiTiet on HoaDonChiTiet.ID_HoaDon = HoaDon.IDHoaDon\n" +
 "join ChiTietVi on (HoaDonChiTiet.ID_ChiTietVi = ChiTietVi.IDChiTietVi)\n" +
@@ -32,9 +30,8 @@ public class TKSanPham_repos implements ITKSanPham_repos{
 "join ChatLieu on (ChiTietVi.ID_ChatLieu = ChatLieu.IDChatLieu)\n" +
 "join LoaiVi on (ChiTietVi.ID_LoaiVi = LoaiVi.IDLoaiVi)\n" +
 "where HoaDon.TrangThai = 1";
-        
-        try(Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
-            ResultSet rs = ps.executeQuery();
+        ResultSet rs = JDBCHeper.Query(sql);
+        try {
             while (rs.next()) {
                 int slban = 0;
 //                if (String.valueOf(rs.getInt(5)).length() > 0) {
@@ -69,9 +66,8 @@ public class TKSanPham_repos implements ITKSanPham_repos{
                 + "				join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
                 + "                join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
                 + "                                WHERE DATE(donhang.NgayTao) between ?   and ? and donhang.TrangThai != 2\n)";
-        
-        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
-             ResultSet rs = ps.executeQuery();
+        ResultSet rs = JDBCHeper.Query(sql, batDau, ketThuc,batDau,ketThuc);
+        try {
             while (rs.next()) {
                 int slban = 0;
                 if (String.valueOf(rs.getInt(5)).length() > 0) {

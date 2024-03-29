@@ -6,10 +6,10 @@ package Model;
 
 /**
  *
- * @author vicon
+ * @author Windows
  */
 public class TKDoanhThu_Model {
-    private int thang;
+      private int thang;
     private int slSanPham;
     private float tongGiaBan;
     private float tongGiaGia;
@@ -65,6 +65,4 @@ public class TKDoanhThu_Model {
     public void setTongDoanhThu(float tongDoanhThu) {
         this.tongDoanhThu = tongDoanhThu;
     }
-    
-    
 }

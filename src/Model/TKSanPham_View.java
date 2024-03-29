@@ -6,23 +6,22 @@ package Model;
 
 /**
  *
- * @author vicon
+ * @author Windows
  */
 public class TKSanPham_View {
-
-    private String maSP;
-    private String machitiet;
+           private String maSP;
+           private String machitiet;
     private String ten;
-
+    
     private String thuonghieu;
     private String nhasanxuat;
-    private String chatlieu;
+     private String chatlieu;
     private String loaivi;
     private int slBan;
 
     public TKSanPham_View() {
     }
-    
+
     public TKSanPham_View(String maSP, String machitiet, String ten, String thuonghieu, String nhasanxuat, String chatlieu, String loaivi, int slBan) {
         this.maSP = maSP;
         this.machitiet = machitiet;
@@ -34,20 +33,19 @@ public class TKSanPham_View {
         this.slBan = slBan;
     }
 
-    public String getMaSP() {
-        return maSP;
-    }
-
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
-    }
-
     public String getMachitiet() {
         return machitiet;
     }
 
     public void setMachitiet(String machitiet) {
         this.machitiet = machitiet;
+    }
+    public String getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
     }
 
     public String getTen() {
@@ -97,7 +95,5 @@ public class TKSanPham_View {
     public void setSlBan(int slBan) {
         this.slBan = slBan;
     }
-    
-    
     
 }

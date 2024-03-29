@@ -6,11 +6,10 @@ package Model;
 
 /**
  *
- * @author vicon
+ * @author Windows
  */
 public class TKTongQuan_Model {
-
-    private int donHang;
+        private int donHang;
     private int sanPham;
     private float doanhThu;
 
@@ -46,11 +45,8 @@ public class TKTongQuan_Model {
     public void setDoanhThu(float doanhThu) {
         this.doanhThu = doanhThu;
     }
-
-    @Override
+        @Override
     public String toString() {
         return "TKTongQuan_Model{" + "donHang=" + donHang + ", sanPham=" + sanPham + ", doanhThu=" + doanhThu + '}';
     }
-    
-    
 }

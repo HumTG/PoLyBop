@@ -2,20 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Repository;
+package Service;
 
 import Model.TKTongQuan_Model;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import Repository.JDBCHeper;
 
 /**
  *
- * @author vicon
+ * @author Windows
  */
-public class TKTongQuan_Repos implements ITKTongQuan_Repos{
+public class TKTongQuan_Repos implements ITKTongQuan_Repos {
+
     @Override
-    public TKTongQuan_Model tkHomNay(){
-         TKTongQuan_Model tk = null;
+    public TKTongQuan_Model tkHomNay() {
+        TKTongQuan_Model tk = null;
         String sql = "	SELECT (\n"
                 + "	SELECT count(HoaDon.Ma_HoaDon) \n"
                 + "	FROM HoaDon\n"
@@ -35,7 +36,7 @@ public class TKTongQuan_Repos implements ITKTongQuan_Repos{
             return null;
         }
     }
-    
+
     @Override
     public TKTongQuan_Model tkTheoNgay(String batDau, String ketThuc) {
         TKTongQuan_Model tk = null;
@@ -62,4 +63,5 @@ public class TKTongQuan_Repos implements ITKTongQuan_Repos{
         ITKTongQuan_Repos repo = new TKTongQuan_Repos();
         System.out.println(repo.tkHomNay().toString());
     }
+
 }

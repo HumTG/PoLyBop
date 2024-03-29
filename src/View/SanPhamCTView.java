@@ -18,7 +18,6 @@ import Service.LoaiViDao;
 import Service.MauSacDao;
 import Service.SanPhamDAO;
 import Service.SanPhamService;
-import Service.TKSanPham_Service;
 import Service.XuatXuDao;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -37,7 +36,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
     MauSacDao daoms = new MauSacDao();
     ChatLieuDao daocl = new ChatLieuDao();
     LoaiViDao daolv = new LoaiViDao();
-    TKSanPham_Service service1 = new TKSanPham_Service();
     SanPhamService ser = new SanPhamService();
 
     List<XuatXu> listXuatXu;
@@ -391,13 +389,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
 //        txt_giaBan.setText(tbl_SanPhamCT.getValueAt(i, 9).toString());
     }//GEN-LAST:event_tbl_SanPhamCTMouseClicked
 
-    private void selectMaxIDLSP() {
-        if (service1.getTKSanPham().isEmpty()) {
-            txt_MaCTVi.setText("CTV001");
-        } else {
-            txt_MaCTVi.setText("CTV0" + (service1.select_Max_id_java() + 1));
-        }
-    }
 
     private void lammoi() {
         txt_MaCTVi.setText("");
@@ -408,7 +399,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
         txt_giaNhap.setText("");
         txt_soNganDungThe.setText("");
         txt_tenSP.setText("");
-        selectMaxIDLSP();
 
     }
 

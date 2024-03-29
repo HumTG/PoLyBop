@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  *
- * @author vicon
+ * @author Windows
  */
 public interface ITKDoanhThu_repos {
-    List<TKDoanhThu_Model> getTKDoanhThu (int nam);
+      List<TKDoanhThu_Model> getTKDoanhThu(int nam);
 }
