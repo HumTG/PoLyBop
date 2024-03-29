@@ -27,6 +27,7 @@ public interface InterfaceSanPham {
     // lấy ra thông tin sản phẩm chi tiết qua quã sản phẩm 
     List<SanPhamCT> getDaTaSPCT(String maSP);
     // 
-    int getSoLuongSPCT(String maVi); 
+    int getSoLuongSPCT(String maVi);
+    abstract public void update(SanPhamCT sp);
     
 }

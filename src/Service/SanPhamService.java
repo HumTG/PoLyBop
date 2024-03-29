@@ -20,11 +20,4 @@ public class SanPhamService {
     public List<SanPham> getAll(){
         return viRepository.getAll();
     }
-    public String delete(Vi id) {
-        if (sanPhamDAO.delCTV(id)==true) {
-            return "dax xoa";
-        } else {
-            return "That bajt";
-        }
-    }
 }

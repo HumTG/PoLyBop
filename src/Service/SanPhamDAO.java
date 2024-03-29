@@ -8,6 +8,7 @@ import Model.SanPham;
 import Model.SanPhamCT;
 import Model.Vi;
 import Repository.DBconnect;
+import Repository.JDBCHeper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamDAO implements InterfaceSanPham {
+    
+    String update = "Update ChiTietVi set ID_MauSac=?, ID_ChatLieu=?,ID_XuatXu=?, ID_LoaiVi=?, KhoaVi=?,SoNganDungThe =?, SoLuong = ?,GiaNhap = ?, GiaBan = ?, NgayNhap = ? where Ma_ChiTietVi = ?";
 
     @Override
     public List<SanPham> getAll() {
@@ -134,31 +137,33 @@ public class SanPhamDAO implements InterfaceSanPham {
     // lấy ra thông tin chi tiết của sản phẩm thông qua mã sản phẩm 
     @Override
     public List<SanPhamCT> getDaTaSPCT(String maSP) {
-        String sql = "SELECT Ma_ChiTietVi,TenMauSac,TenChatLieu,\n"
-                + "TenXuatXu,TenLoaiVi,KhoaVi,SoNganDungThe,\n"
+        String sql = "SELECT Ma_ChiTietVi,ID_MauSac,ID_ChatLieu,\n"
+                + "ID_XuatXu,ID_LoaiVi,KhoaVi,SoNganDungThe,\n"
                 + "SoLuong,GiaNhap,ChiTietVi.GiaBan,NgayNhap\n"
                 + "from ChiTietVi \n"
                 + "join Vi on ChiTietVi.ID_Vi = Vi.IDVi\n"
-                + "join MauSac on ChiTietVi.ID_MauSac = MauSac.IDMauSac\n"
-                + "join ChatLieu on ChiTietVi.ID_ChatLieu = ChatLieu.IDChatLieu\n"
-                + "join XuatXu on ChiTietVi.ID_XuatXu = XuatXu.IDXuatXu\n"
-                + "join LoaiVi on ChiTietVi.ID_LoaiVi = LoaiVi.IDLoaiVi\n"
+//                + "join MauSac on ChiTietVi.ID_MauSac = MauSac.IDMauSac\n"
+//                + "join ChatLieu on ChiTietVi.ID_ChatLieu = ChatLieu.IDChatLieu\n"
+//                + "join XuatXu on ChiTietVi.ID_XuatXu = XuatXu.IDXuatXu\n"
+//                + "join LoaiVi on ChiTietVi.ID_LoaiVi = LoaiVi.IDLoaiVi\n"
                 + "where Vi.Ma_Vi like '" + maSP + "'";
         List<SanPhamCT> list = new ArrayList<>();
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPhamCT spct = new SanPhamCT(rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
                         rs.getString(6),
                         rs.getString(7),
                         rs.getInt(8),
                         rs.getDouble(9),
                         rs.getDouble(10),
                         rs.getString(11));
+//                String ma = rs.getString("Ma_ChiTietVi");
+//                Integer  = rs.getString("Ma_ChiTietVi");
                 list.add(spct);
             }
         } catch (Exception e) {
@@ -181,14 +186,9 @@ public class SanPhamDAO implements InterfaceSanPham {
         }
         return SL;
     }
-
-    public Boolean delCTV(Vi id) {
-        String sql = "UPDATE Vi set TRANGTHAI = 0 WHERE TenVi = ?";
-        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
-            ps.setObject(1, id.getTenVi());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    @Override
+    public void update(SanPhamCT sp){
+        JDBCHeper.update(update,sp.getTenMauSac(),sp.getTenChatLieu(),sp.getTenXuatXu(),sp.getTenLoaiVi(),sp.getKhoaVi(),sp.getSoNgan(),sp.getSoLuongSP(),sp.getGiaNhapSP(),sp.getGiaBanSP(),sp.getNgayNhap(), sp.getMaCTSP());
     }
+    
 }

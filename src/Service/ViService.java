@@ -4,6 +4,7 @@
  */
 package Service;
 
+import Model.SanPhamCT;
 import Model.Vi;
 import Repository.DBconnect;
 import java.sql.Connection;
@@ -17,13 +18,16 @@ import java.sql.ResultSet;
 public class ViService {
 
     ViDao dao = new ViDao();
-
+SanPhamDAO dao1 = new SanPhamDAO();
     public void insert(Vi sp) {
         dao.insert(sp);
     }
 
     public void update(Vi sp) {
         dao.update(sp);
+    }
+    public void update1(SanPhamCT sp) {
+        dao1.update(sp);
     }
 
     public void delete(Vi sp) {

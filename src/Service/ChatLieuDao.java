@@ -39,7 +39,7 @@ public class ChatLieuDao implements InterfaceChatLieu {
     }
 
     @Override
-    public ChatLieu selectID(Integer id) {
+    public ChatLieu selectID(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -55,10 +55,10 @@ public class ChatLieuDao implements InterfaceChatLieu {
             ResultSet rs = JDBCHeper.query(sql, args);
             while (rs.next()) {
                 ChatLieu ms = new ChatLieu();
-                ms.setIdChatLieu(rs.getInt("idChatLieu"));
+                ms.setIdChatLieu(rs.getInt("IDChatLieu"));
                 ms.setMa_ChatLieu(rs.getString("Ma_ChatLieu"));
-                ms.setTenChatLieu(rs.getString("tenChatLieu"));
-                ms.setTrangThai(rs.getBoolean("trangThai"));
+                ms.setTenChatLieu(rs.getString("TenChatLieu"));
+                ms.setTrangThai(rs.getBoolean("TrangThai"));
                 lisst.add(ms);
             }
         } catch (Exception e) {

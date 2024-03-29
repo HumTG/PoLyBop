@@ -5,7 +5,6 @@
 package Service;
 
 import Model.LoaiVi;
-import Model.MauSac;
 import java.util.List;
 
 /**
@@ -13,7 +12,6 @@ import java.util.List;
  * @author Xuan Dat
  */
 public interface InterfaceLoaiVi {
-
     abstract public void insert(LoaiVi sp);
 
     abstract public void update(LoaiVi sp);

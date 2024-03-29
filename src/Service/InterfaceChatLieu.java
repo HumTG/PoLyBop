@@ -19,8 +19,9 @@ public interface InterfaceChatLieu {
     abstract public void delete(Integer id);
     
     
-    abstract public ChatLieu selectID(Integer id);
+    abstract public ChatLieu selectID(String id);
     
     abstract public List<ChatLieu> selectAll();
+    
     abstract public List<ChatLieu> selectBySQL(String sql, Object...args);
 }
