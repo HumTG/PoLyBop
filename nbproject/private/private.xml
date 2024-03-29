@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/SanPhamView.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/LoginView.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/Repository/JDBCHeper.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/Service/InterfaceSanPham.java</file>
+            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/Service/SanPhamDAO.java</file>
             <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/Main.java</file>
             <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/View/SanPhamCTView.java</file>
-            <file>file:/C:/Users/Admin/OneDrive/Desktop/Class-GIT/PoLyBop/src/Repository/DBconnect.java</file>
         </group>
     </open-files>
 </project-private>

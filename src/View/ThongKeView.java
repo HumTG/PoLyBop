@@ -386,7 +386,7 @@ public class ThongKeView extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Sản Phẩm", "Hoá Đơn Chi Tiết", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Sản Xuất", "Chất Liệu", "Loại Ví", "Số Lượng Bán"
+                "Mã Hóa Đơn", "Hoá Đơn Chi Tiết", "Tên Sản Phẩm", "Thương Hiệu", "Nhà Sản Xuất", "Chất Liệu", "Loại Ví", "Số Lượng Bán"
             }
         ));
         jScrollPane1.setViewportView(tbl_TKSP);

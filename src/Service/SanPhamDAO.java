@@ -13,10 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SanPhamDAO implements InterfaceSanPham {
-    
+
     String update = "Update ChiTietVi set ID_MauSac=?, ID_ChatLieu=?,ID_XuatXu=?, ID_LoaiVi=?, KhoaVi=?,SoNganDungThe =?, SoLuong = ?,GiaNhap = ?, GiaBan = ?, NgayNhap = ? where Ma_ChiTietVi = ?";
 
     @Override
@@ -175,7 +176,7 @@ public class SanPhamDAO implements InterfaceSanPham {
     @Override
     public int getSoLuongSPCT(String maVi) {
         int SL = 0;
-        String sql = "Select COUNT(Ma_ChiTietVi) from ChiTietVi where ID_Vi = (Select IDVi from Vi where Ma_Vi = '"+maVi+"' )"; 
+        String sql = "Select COUNT(Ma_ChiTietVi) from ChiTietVi where ID_Vi = (Select IDVi from Vi where Ma_Vi = '" + maVi + "' )";
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -186,9 +187,66 @@ public class SanPhamDAO implements InterfaceSanPham {
         }
         return SL;
     }
+
     @Override
-    public void update(SanPhamCT sp){
-        JDBCHeper.update(update,sp.getTenMauSac(),sp.getTenChatLieu(),sp.getTenXuatXu(),sp.getTenLoaiVi(),sp.getKhoaVi(),sp.getSoNgan(),sp.getSoLuongSP(),sp.getGiaNhapSP(),sp.getGiaBanSP(),sp.getNgayNhap(), sp.getMaCTSP());
+    public void addCTSP(int idSP, int idMauSac, int idChatLieu, int idXuatXu, int idLoaiVi, String maCTSP, String khoaVi, String soNganDungThe, int soLuong, double giaNhap, double giaBan, String ngayNhap) {
+        String sql = "INSERT INTO [dbo].[ChiTietVi]\n"
+                + "           ([ID_Vi]\n"
+                + "           ,[ID_MauSac]\n"
+                + "           ,[ID_ChatLieu]\n"
+                + "           ,[ID_XuatXu]\n"
+                + "           ,[ID_LoaiVi]\n"
+                + "           ,[Ma_ChiTietVi]\n"
+                + "           ,[KhoaVi]\n"
+                + "           ,[SoNganDungThe]\n"
+                + "           ,[SoLuong]\n"
+                + "           ,[GiaNhap]\n"
+                + "           ,[GiaBan]\n"
+                + "           ,[NgayNhap]\n"
+                + "           ,[TrangThai])\n"
+                + "     VALUES\n"
+                + "           (" + idSP + "\n"
+                + "           ," + idMauSac + "\n"
+                + "           ," + idChatLieu + "\n"
+                + "           ," + idXuatXu + "\n"
+                + "           ," + idLoaiVi + "\n"
+                + "           ,'" + maCTSP + "'\n"
+                + "           ,'" + khoaVi + "'\n"
+                + "           ,'" + soNganDungThe + "'\n"
+                + "           ," + soLuong + "\n"
+                + "           ," + giaNhap + "\n"
+                + "           ," + giaBan + "\n"
+                + "           ,'" + ngayNhap + "'\n"
+                + "           ,1\n"
+                + "		   )";
+        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
+    @Override
+    public void updateCTSP(int idSP, int idMauSac, int idChatLieu, int idXuatXu, int idLoaiVi, String maCTSP, String khoaVi, String soNganDungThe, int soLuong, double giaNhap, double giaBan, String ngayNhap) {
+        String sql = "UPDATE [dbo].[ChiTietVi]\n"
+                + "   SET [ID_MauSac] = "+idMauSac+" \n"
+                + "      ,[ID_ChatLieu] = "+idChatLieu+" \n"
+                + "      ,[ID_XuatXu] = "+idXuatXu+" \n"
+                + "      ,[ID_LoaiVi] = "+idLoaiVi+" \n"
+                + "      ,[Ma_ChiTietVi] = '"+maCTSP+"'\n"
+                + "      ,[KhoaVi] = '"+khoaVi+"'\n"
+                + "      ,[SoNganDungThe] = '"+soNganDungThe+"'\n"
+                + "      ,[SoLuong] = "+soLuong+" \n"
+                + "      ,[GiaNhap] = "+giaNhap+" \n"
+                + "      ,[GiaBan] = "+giaBan+" \n"
+                + "      ,[NgayNhap] = '"+ngayNhap+"'\n"
+                + "      ,[TrangThai] = 1 \n"
+                + " WHERE ID_Vi = "+idSP+" ";
+        try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

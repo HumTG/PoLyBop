@@ -18,7 +18,10 @@ import Service.LoaiViDao;
 import Service.MauSacDao;
 import Service.SanPhamDAO;
 import Service.SanPhamService;
+import Service.ThuocTinhSanPhamDAO;
 import Service.XuatXuDao;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -36,7 +39,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
     MauSacDao daoms = new MauSacDao();
     ChatLieuDao daocl = new ChatLieuDao();
     LoaiViDao daolv = new LoaiViDao();
-    SanPhamService ser = new SanPhamService();
+    ThuocTinhSanPhamDAO serviceTT = new ThuocTinhSanPhamDAO(); 
 
     List<XuatXu> listXuatXu;
     List<MauSac> listMauSac;
@@ -56,7 +59,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
 
         // Kiểm tra sản phẩm đã có thông tin chi tiết chưa 
         if (service.getSoLuongSPCT(maVi) <= 0) {
-            System.out.println("Sản phẩm chưa có thông tin chi tiết");
+            //System.out.println("Sản phẩm chưa có thông tin chi tiết");
         } else {
             // Sản phẩm đã có thông tin chi tiết 
             SanPhamCT sanPhamCT = service.getDaTaSPCT(maVi).get(0);
@@ -371,7 +374,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        //  update();
+        update();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tbl_SanPhamCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_SanPhamCTMouseClicked
@@ -388,7 +391,6 @@ public class SanPhamCTView extends javax.swing.JFrame {
 //        txt_giaNhap.setText(tbl_SanPhamCT.getValueAt(i, 8).toString());
 //        txt_giaBan.setText(tbl_SanPhamCT.getValueAt(i, 9).toString());
     }//GEN-LAST:event_tbl_SanPhamCTMouseClicked
-
 
     private void lammoi() {
         txt_MaCTVi.setText("");
@@ -531,16 +533,48 @@ public class SanPhamCTView extends javax.swing.JFrame {
         }
     }
 
+    // Check xem sản phẩm đã có chi tiết sản phẩm chưa 
+    boolean checkCTViExit() {
+        int SLSPCT = service.getSoLuongSPCT(maVi);
+        if (SLSPCT <=0) {
+            return true;
+        }
+        return false;
+    }
+
+   
     private void update() {
-        try {
-            if (MsgBox.confirm(this, "Bạn có muốn sửa sản phẩm ?")) {
-                SanPhamCT sp = getInformation();
-                service.update(sp);
-                this.maVi = maVi;
+        int idSP , idMauSac, idChatLieu , idXuatXu , idLoaiVi , soLuong ;
+        String maCTSP , khoaVi , soNganDungThe  , ngayNhap ;
+        double giaBan , giaNhap ; 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        idSP = serviceTT.getIDSPbyName(txt_tenSP.getText());
+        idMauSac = serviceTT.getIDMauSacbyName((String)cbo_mauSac.getSelectedItem());
+        idChatLieu = serviceTT.getIDChatLieubyName((String)cbo_chatLieu.getSelectedItem()); 
+        idXuatXu = serviceTT.getIDXuatXubyName((String)cbo_xuatXu.getSelectedItem()); 
+        idLoaiVi = serviceTT.getIDLoaiVibyName((String)cbo_loaiVi.getSelectedItem()); 
+        maCTSP = txt_MaCTVi.getText(); 
+        khoaVi = txt_KhoaVi.getText(); 
+        soNganDungThe = txt_soNganDungThe.getText(); 
+        ngayNhap = dateFormat.format(txt_NgayNhap.getDate());
+        soLuong = Integer.valueOf(txt_SoLuong.getText());
+        giaNhap = Double.valueOf(txt_giaNhap.getText()); 
+        giaBan = Double.valueOf(txt_giaBan.getText()); 
+        try { 
+            // 
+            if (checkCTViExit()) {
+                System.out.println(ngayNhap);
+                service.addCTSP(idSP, idMauSac, idChatLieu, idXuatXu, idLoaiVi, maCTSP, khoaVi, soNganDungThe, soLuong, giaNhap, giaBan, ngayNhap);
+                JOptionPane.showMessageDialog(this, "Thêm chi tiết sản phẩm thành công");
                 this.fillTable(service.getDaTaSPCT(maVi));
-                lammoi();
-                JOptionPane.showMessageDialog(this, "Đã sửa");
-            } else ;
+            } else {
+                if (MsgBox.confirm(this, "Bạn có muốn sửa sản phẩm ?")) {
+                    service.updateCTSP(idSP, idMauSac, idChatLieu, idXuatXu, idLoaiVi, maCTSP, khoaVi, soNganDungThe, soLuong, giaNhap, giaBan, ngayNhap);
+                    this.fillTable(service.getDaTaSPCT(maVi));
+                    JOptionPane.showMessageDialog(this, "Đã sửa");
+                }
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ops! Sửa thất bại");
             e.printStackTrace();

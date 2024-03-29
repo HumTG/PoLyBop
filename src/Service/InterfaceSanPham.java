@@ -5,6 +5,7 @@
 package Service;
 import Model.SanPham; 
 import Model.SanPhamCT;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,10 @@ public interface InterfaceSanPham {
     List<SanPhamCT> getDaTaSPCT(String maSP);
     // 
     int getSoLuongSPCT(String maVi);
-    abstract public void update(SanPhamCT sp);
     
+    // Thêm chi tiết sản phẩm 
+    void addCTSP(int idSP , int idMauSac , int idChatLieu , int idXuatXu , int idLoaiVi , String maCTSP , String khoaVi , String soNganDungThe , int soLuong , double giaNhap , double giaBan , String ngayNhap); 
+    // update chi tiết sản phẩm 
+    void updateCTSP(int idSP , int idMauSac , int idChatLieu , int idXuatXu , int idLoaiVi , String maCTSP , String khoaVi , String soNganDungThe , int soLuong , double giaNhap , double giaBan , String ngayNhap); 
+
 }
