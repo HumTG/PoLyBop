@@ -233,7 +233,6 @@ public class SanPhamDAO implements InterfaceSanPham {
                 + "      ,[ID_ChatLieu] = "+idChatLieu+" \n"
                 + "      ,[ID_XuatXu] = "+idXuatXu+" \n"
                 + "      ,[ID_LoaiVi] = "+idLoaiVi+" \n"
-                + "      ,[Ma_ChiTietVi] = '"+maCTSP+"'\n"
                 + "      ,[KhoaVi] = '"+khoaVi+"'\n"
                 + "      ,[SoNganDungThe] = '"+soNganDungThe+"'\n"
                 + "      ,[SoLuong] = "+soLuong+" \n"
@@ -241,7 +240,7 @@ public class SanPhamDAO implements InterfaceSanPham {
                 + "      ,[GiaBan] = "+giaBan+" \n"
                 + "      ,[NgayNhap] = '"+ngayNhap+"'\n"
                 + "      ,[TrangThai] = 1 \n"
-                + " WHERE ID_Vi = "+idSP+" ";
+                + " WHERE ID_Vi = "+idSP+" and Ma_ChiTietVi = '"+maCTSP+"'";
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ps.executeUpdate();
         } catch (Exception e) {
