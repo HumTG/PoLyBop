@@ -30,16 +30,16 @@ public class TKDoanhThu_repos implements ITKDoanhThu_repos{
         for (int i = 1; i <= 12; i++) {
             try {
                 ResultSet rs = JDBCHeper.Query(sql, i, i,nam);
-                int thang = 0;
+//                int thang = 1;
                 float SL = 0, doanhThu = 0, giamGia = 0, giaSauGiam = 0;
                 while (rs.next()) {
-                    thang = rs.getInt(1);
+                    i = rs.getInt(1);
                     SL += rs.getInt(2);
                     doanhThu += rs.getFloat(3);
                     giamGia += rs.getFloat(4);
                     giaSauGiam += rs.getFloat(5);
                 }
-                list.add(new TKDoanhThu_Model(thang, (int) SL, doanhThu, giamGia, giaSauGiam));
+                list.add(new TKDoanhThu_Model(i, (int) SL, doanhThu, giamGia, giaSauGiam));
             } catch (SQLException ex) {
                 Logger.getLogger(TKDoanhThu_repos.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();

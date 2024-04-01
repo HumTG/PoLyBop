@@ -532,18 +532,21 @@ public class ThongKeView extends javax.swing.JPanel {
         // TODO add your handling code here:
         filltblTKSP();
         testbarchar(Integer.parseInt(cboNam.getSelectedItem().toString()));
+        showData(Integer.parseInt(cboNam.getSelectedItem().toString()));
     }//GEN-LAST:event_cboNamMouseClicked
 
     private void cboNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamActionPerformed
         // TODO add your handling code here:
         filltblTKSP();
         testbarchar(Integer.parseInt(cboNam.getSelectedItem().toString()));
+                showData(Integer.parseInt(cboNam.getSelectedItem().toString()));
     }//GEN-LAST:event_cboNamActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
         filltblTKSP();
         testbarchar(Integer.parseInt(cboNam.getSelectedItem().toString()));
+        showData(Integer.parseInt(cboNam.getSelectedItem().toString()));
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
