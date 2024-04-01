@@ -15,7 +15,7 @@ public class NhanVien {
     private int idNhanVien;
     private String maNhanVien;
     private String hoTen;
-    private String chucVu;
+    private boolean chucVu;
     private Date ngaySinh;
     private String sdt;
     private String email;
@@ -27,7 +27,7 @@ public class NhanVien {
     public NhanVien() {
     }
 
-    public NhanVien(int idNhanVien, String maNhanVien, String hoTen, String chucVu, Date ngaySinh, String sdt, String email, boolean gioiTinh, String diaChi, String matKhau, boolean trangThai) {
+    public NhanVien(int idNhanVien, String maNhanVien, String hoTen, boolean chucVu, Date ngaySinh, String sdt, String email, boolean gioiTinh, String diaChi, String matKhau, boolean trangThai) {
         this.idNhanVien = idNhanVien;
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
@@ -41,7 +41,7 @@ public class NhanVien {
         this.trangThai = trangThai;
     }
 
-    public NhanVien(String maNhanVien, String hoTen, String chucVu, Date ngaySinh, String sdt, String email, boolean gioiTinh, String diaChi, String matKhau, boolean trangThai) {
+    public NhanVien(String maNhanVien, String hoTen, boolean chucVu, Date ngaySinh, String sdt, String email, boolean gioiTinh, String diaChi, String matKhau, boolean trangThai) {
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
         this.chucVu = chucVu;
@@ -78,11 +78,11 @@ public class NhanVien {
         this.hoTen = hoTen;
     }
 
-    public String getChucVu() {
+    public boolean isChucVu() {
         return chucVu;
     }
 
-    public void setChucVu(String chucVu) {
+    public void setChucVu(boolean chucVu) {
         this.chucVu = chucVu;
     }
 
@@ -142,13 +142,13 @@ public class NhanVien {
         this.trangThai = trangThai;
     }
 
+
+    
+
     
     public Object[] todata(){
-        return new Object[]{maNhanVien, hoTen, chucVu, ngaySinh, sdt, email, isGioiTinh()? "Nam" : "Nữ",diaChi, matKhau,isTrangThai()? "Đang hoạt động" : "Không hoạt động"};
+        return new Object[]{maNhanVien, hoTen, isChucVu()? "Admin" : "Nhân viên", ngaySinh, sdt, email, isGioiTinh()? "Nam" : "Nữ",diaChi, matKhau,isTrangThai()? "Đang hoạt động" : "Không hoạt động"};
     }
 
     
-    public boolean isChucVu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
