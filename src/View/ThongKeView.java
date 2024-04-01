@@ -25,7 +25,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.RectangleEdge;
 
 /**
  *
@@ -95,6 +98,8 @@ public class ThongKeView extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         tabDoanhThu = new javax.swing.JTabbedPane();
         pnlBieuDo = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        pnlBieuDoTron = new javax.swing.JPanel();
         cboNam = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -320,19 +325,43 @@ public class ThongKeView extends javax.swing.JPanel {
         pnlBieuDo.setBackground(new java.awt.Color(255, 255, 255));
         pnlBieuDo.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.red));
         pnlBieuDo.setLayout(new java.awt.BorderLayout());
-        tabDoanhThu.addTab("Biểu Đồ", pnlBieuDo);
+        tabDoanhThu.addTab("Biểu Đồ Cột", pnlBieuDo);
+
+        pnlBieuDoTron.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBieuDoTron.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.red));
+        pnlBieuDoTron.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 651, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addComponent(pnlBieuDoTron, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlBieuDoTron, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+        );
+
+        tabDoanhThu.addTab("Biểu Đồ Tròn", jPanel8);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE))
+                .addComponent(tabDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 738, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabDoanhThu)
+            .addComponent(tabDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
 
         cboNam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024" }));
@@ -531,6 +560,10 @@ public class ThongKeView extends javax.swing.JPanel {
             testbarchar(Integer.parseInt(cboNam.getSelectedItem().toString()));
 
         }
+        if (tabDoanhThu.getSelectedIndex() == 1) {
+            showData(Integer.parseInt(cboNam.getSelectedItem().toString()));
+
+        }
     }//GEN-LAST:event_tabDoanhThuMouseClicked
 
 
@@ -555,12 +588,14 @@ public class ThongKeView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbdonhang;
     private javax.swing.JLabel lbldoanhthu;
     private javax.swing.JLabel lblsanpham;
     private javax.swing.JPanel pnlBieuDo;
+    private javax.swing.JPanel pnlBieuDoTron;
     private javax.swing.JPanel pnlLoaiThoiGian;
     private javax.swing.JTabbedPane tabDoanhThu;
     private javax.swing.JTable tbl_TKSP;
@@ -596,6 +631,20 @@ public class ThongKeView extends javax.swing.JPanel {
         pnlBieuDo.add(chartPanel);
   
     }
+    public void showData(int nam){
+        listDoanhThuThang = tKDoanhThu_service.getTKDoanhThu(nam);
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        for (TKDoanhThu_View t : listDoanhThuThang) {
+            dataset.setValue("Tháng " + t.getThang(), t.getTongDoanhThu());
+        }
+        JFreeChart pieChart = ChartFactory.createPieChart("Doanh Thu Theo Năm", dataset, true, true, false);
+        LegendTitle legend = pieChart.getLegend();
+        legend.setPosition(RectangleEdge.RIGHT);
+        ChartPanel chartPanel = new ChartPanel(pieChart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlBieuDoTron.removeAll();
+        pnlBieuDoTron.add(chartPanel);
+}
 //      public void filltblDoanhThuThang(int nam) {
 //        listDoanhThuThang = tKDoanhThu_service.getTKDoanhThu(nam);
 //        mol = (DefaultTableModel) tblTK_Thang.getModel();
