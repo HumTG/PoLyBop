@@ -13,32 +13,34 @@ import java.util.Date;
 public class KhuyenMai {
     private int id;
     private String ma;
+    private String kieuGiamGia;
     private int giaTri;
     private Date ngayBatDau;
     private Date ngayKetThuc;
-    private String trangThai;
+    private boolean trangThai;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String ma, int giaTri, Date ngayBatDau, Date ngayKetThuc,  String trangThai) {
+    public KhuyenMai(String ma, String kieuGiamGia, int giaTri, Date ngayBatDau, Date ngayKetThuc, boolean trangThai) {
         this.ma = ma;
+        this.kieuGiamGia = kieuGiamGia;
         this.giaTri = giaTri;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.trangThai = trangThai;
     }
 
-    
-    public KhuyenMai(int id, String ma, int giaTri, Date ngayBatDau, Date ngayKetThuc,  String trangThai) {
+    public KhuyenMai(int id, String ma, String kieuGiamGia, int giaTri, Date ngayBatDau, Date ngayKetThuc, boolean trangThai) {
         this.id = id;
         this.ma = ma;
+        this.kieuGiamGia = kieuGiamGia;
         this.giaTri = giaTri;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.trangThai = trangThai;
     }
-   
+
     public int getId() {
         return id;
     }
@@ -53,6 +55,14 @@ public class KhuyenMai {
 
     public void setMa(String ma) {
         this.ma = ma;
+    }
+
+    public String getKieuGiamGia() {
+        return kieuGiamGia;
+    }
+
+    public void setKieuGiamGia(String kieuGiamGia) {
+        this.kieuGiamGia = kieuGiamGia;
     }
 
     public int getGiaTri() {
@@ -78,17 +88,22 @@ public class KhuyenMai {
     public void setNgayKetThuc(Date ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
     }
-    public String isTrangThai() {
+
+    public boolean isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
 
+    
+    
+
    public Object[] toDataRow(){
-      return new Object[]{
-           this.id, this.ma, this.giaTri, this.ngayBatDau, this.ngayKetThuc, this.trangThai
-       };
+    String trangThaiStr = (trangThai) ? "Còn hoạt động" : "Không hoạt động";
+    return new Object[]{
+        id, ma, kieuGiamGia, giaTri, ngayBatDau, ngayKetThuc, trangThaiStr
+    };
    }   
 }
