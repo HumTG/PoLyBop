@@ -382,7 +382,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
     private void tbl_SanPhamCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_SanPhamCTMouseClicked
         // Click hiện thông tin chi tiết sản phẩm lên form 
         // Sản phẩm đã có thông tin chi tiết 
-        int index = tbl_SanPhamCT.getSelectedRow(); 
+        int index = tbl_SanPhamCT.getSelectedRow();
         SanPhamCT sanPhamCT = service.getDaTaSPCT(maVi).get(index);
         txt_MaCTVi.setText(sanPhamCT.getMaCTSP());
         txt_KhoaVi.setText(sanPhamCT.getKhoaVi());
@@ -395,7 +395,7 @@ public class SanPhamCTView extends javax.swing.JFrame {
         cbo_loaiVi.setSelectedItem(sanPhamCT.getTenLoaiVi());
         cbo_mauSac.setSelectedItem(sanPhamCT.getTenMauSac());
         cbo_chatLieu.setSelectedItem(sanPhamCT.getTenChatLieu());
-        
+
 //        txt_MaCTVi.setEnabled(false);
     }//GEN-LAST:event_tbl_SanPhamCTMouseClicked
 
@@ -549,128 +549,126 @@ public class SanPhamCTView extends javax.swing.JFrame {
         }
     }
 
-    // Check xem sản phẩm đã có chi tiết sản phẩm chưa 
-    boolean checkCTViExit() {
-        int SLSPCT = service.getSoLuongSPCT(maVi);
-        if (SLSPCT <= 0) {
-            return true;
-        }
-        return false;
-    }
-
     private boolean vadidateNull() {
-        if (txt_MaCTVi.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm!");
-            txt_MaCTVi.requestFocus();
-
-            return true;
-        }
-        if (txt_tenSP.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm!");
-            txt_tenSP.requestFocus();
-
-            return true;
-        }
-        if (txt_KhoaVi.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập khóa sản phẩm!");
-            txt_KhoaVi.requestFocus();
-
-            return true;
-        }
         List<SanPhamCT> list = service.getDaTaSPCT(maVi);
         String id = txt_MaCTVi.getText();
         String tensp = txt_tenSP.getText();
         Integer soLuong = Integer.parseInt(txt_SoLuong.getText());
         Double giaNhap = Double.parseDouble(txt_giaNhap.getText());
         Double giaBan = Double.parseDouble(txt_giaBan.getText());
-        for (int i = 0; i < list.size(); i++) {
-            if (id.equalsIgnoreCase(list.get(i).getMaCTSP())) {
-                JOptionPane.showMessageDialog(this, "Trùng khóa chính");
-                txt_MaCTVi.requestFocus();
-                return true;
-            }
-        }
-        if (cbo_chatLieu.getSelectedItem()== null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn chất liệu sản phẩm!");
-            return true;
-        }else if (cbo_loaiVi.getSelectedItem()== null){
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn loại sản phẩm!");
-            return true;
-        }else if (cbo_mauSac.getSelectedItem()== null){
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn màu sản phẩm!");
-            return true;
-        }else if (cbo_xuatXu.getSelectedItem()== null){
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn xuất xứ sản phẩm!");
-            return true;
-        }else if (txt_SoLuong.getText()== null){
+        if (txt_MaCTVi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm!");
+            txt_MaCTVi.requestFocus();
+
+            return false;
+        } else if (txt_KhoaVi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập khóa sản phẩm!");
+            return false;
+        } else if (txt_SoLuong.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng sản phẩm!");
-            return true;
-        }else if (txt_giaNhap.getText()== null){
+            return false;
+        } else if (txt_giaNhap.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập sản phẩm!");
-            return true;
-        }else if (txt_giaBan.getText()== null){
+            return false;
+        } else if (txt_giaBan.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập giá bán sản phẩm!");
-            return true;
-        }else if (txt_soNganDungThe.getText()== null){
+            return false;
+        } else if (txt_soNganDungThe.getText() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số ngăn đựng thẻ!");
-            return true;
-        }else if (txt_NgayNhap.getDate()== null){
+            return false;
+        } else if (txt_NgayNhap.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày nhập sản phẩm!");
-            return true;
-        }else if (txt_MaCTVi.getText().length() < 5) {
+            return false;
+        } else if (txt_MaCTVi.getText().length() < 5) {
             JOptionPane.showMessageDialog(this, "Mã sản phẩm phải trên 4 kí tự");
-            return true;
+            return false;
         } else if (txt_tenSP.getText().length() < 5) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm phải trên 5 kí tự");
-            return true;
+            return false;
         } else if (soLuong < 1) {
             JOptionPane.showMessageDialog(this, "Số lượng sản phẩm phải trên 1 sản phẩm");
-            return true;
+            return false;
         } else if (giaNhap < 1) {
             JOptionPane.showMessageDialog(this, "Giá nhập sản phẩm phải trên 0");
-            return true;
+            return false;
         } else if (giaBan < 0) {
             JOptionPane.showMessageDialog(this, "Giá bán sản phẩm phải trên 0");
-            return true;
+            return false;
         } else if (txt_tenSP.getText().length() < 5) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm phải trên 5 kí tự");
-            return true;
+            return false;
         }
-        return false;
+        return true;
 //return true;
     }
 
-    private void insert() {
-        if (vadidateNull()) {
-            return;
-            
+    // Check trùng sản phẩm 
+    private boolean VadidateTrungCTSP() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String maCTSP = txt_MaCTVi.getText();
+            String khoaVi = txt_KhoaVi.getText();
+            String soNganDungThe = txt_soNganDungThe.getText();
+            String MauSac = (String) cbo_mauSac.getSelectedItem();
+            String ChatLieu = (String) cbo_chatLieu.getSelectedItem();
+            String XuatXu = (String) cbo_xuatXu.getSelectedItem();
+            String LoaiVi = (String) cbo_loaiVi.getSelectedItem();
+            int soLuong = Integer.parseInt(txt_SoLuong.getText());
+            String ngayNhap = dateFormat.format(txt_NgayNhap.getDate());
+            Double giaNhap = Double.valueOf(txt_giaNhap.getText());
+            Double giaBan = Double.valueOf(txt_giaBan.getText());
+            for (SanPhamCT x : service.getDaTaSPCT(maVi)) {
+                if (maCTSP.equalsIgnoreCase(x.getMaCTSP())
+                        & khoaVi.equalsIgnoreCase(x.getKhoaVi())
+                        & soLuong == x.getSoLuongSP()
+                        & soNganDungThe.equalsIgnoreCase(x.getSoNgan())
+                        & ngayNhap.equalsIgnoreCase(x.getNgayNhap())
+                        & giaNhap == x.getGiaNhapSP()
+                        & giaBan == x.getGiaBanSP()
+                        & MauSac.equalsIgnoreCase(x.getTenMauSac())
+                        & ChatLieu.equalsIgnoreCase(x.getTenChatLieu())
+                        & XuatXu.equalsIgnoreCase(x.getTenXuatXu())
+                        & LoaiVi.equalsIgnoreCase(x.getTenLoaiVi())) {
+                    JOptionPane.showMessageDialog(this, "Chi tiết sản phẩm đã tồn tại");
+                    return false;
+                }
+            }
 
-        } else {
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nhập đủ thông tin !");
+        }
+        return true;
+    }
+
+    private void insert() {
+        if (VadidateTrungCTSP() & vadidateNull()) {
             try {
                 int idSP, idMauSac, idChatLieu, idXuatXu, idLoaiVi, soLuong;
-            String maCTSP, khoaVi, soNganDungThe, ngayNhap;
-            double giaBan, giaNhap;
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            idSP = serviceTT.getIDSPbyName(txt_tenSP.getText());
-            idMauSac = serviceTT.getIDMauSacbyName((String) cbo_mauSac.getSelectedItem());
-            idChatLieu = serviceTT.getIDChatLieubyName((String) cbo_chatLieu.getSelectedItem());
-            idXuatXu = serviceTT.getIDXuatXubyName((String) cbo_xuatXu.getSelectedItem());
-            idLoaiVi = serviceTT.getIDLoaiVibyName((String) cbo_loaiVi.getSelectedItem());
-            maCTSP = txt_MaCTVi.getText();
-            khoaVi = txt_KhoaVi.getText();
-            soNganDungThe = txt_soNganDungThe.getText();
-            ngayNhap = dateFormat.format(txt_NgayNhap.getDate());
-            soLuong = Integer.valueOf(txt_SoLuong.getText());
-            giaNhap = Double.valueOf(txt_giaNhap.getText());
-            giaBan = Double.valueOf(txt_giaBan.getText());
-            service.addCTSP(idSP, idMauSac, idChatLieu, idXuatXu, idLoaiVi, maCTSP, khoaVi, soNganDungThe, soLuong, giaNhap, giaBan, ngayNhap);
-            JOptionPane.showMessageDialog(this, "Thêm chi tiết sản phẩm thành công");
-            this.fillTable(service.getDaTaSPCT(maVi));
+                String maCTSP, khoaVi, soNganDungThe, ngayNhap;
+                double giaBan, giaNhap;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                idSP = serviceTT.getIDSPbyName(txt_tenSP.getText());
+                idMauSac = serviceTT.getIDMauSacbyName((String) cbo_mauSac.getSelectedItem());
+                idChatLieu = serviceTT.getIDChatLieubyName((String) cbo_chatLieu.getSelectedItem());
+                idXuatXu = serviceTT.getIDXuatXubyName((String) cbo_xuatXu.getSelectedItem());
+                idLoaiVi = serviceTT.getIDLoaiVibyName((String) cbo_loaiVi.getSelectedItem());
+                maCTSP = txt_MaCTVi.getText();
+                khoaVi = txt_KhoaVi.getText();
+                soNganDungThe = txt_soNganDungThe.getText();
+                ngayNhap = dateFormat.format(txt_NgayNhap.getDate());
+                soLuong = Integer.valueOf(txt_SoLuong.getText());
+                giaNhap = Double.valueOf(txt_giaNhap.getText());
+                giaBan = Double.valueOf(txt_giaBan.getText());
+                service.addCTSP(idSP, idMauSac, idChatLieu, idXuatXu, idLoaiVi, maCTSP, khoaVi, soNganDungThe, soLuong, giaNhap, giaBan, ngayNhap);
+                JOptionPane.showMessageDialog(this, "Thêm chi tiết sản phẩm thành công");
+                this.fillTable(service.getDaTaSPCT(maVi));
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin ");
             }
+
         }
+
     }
 
     private void update() {

@@ -7,6 +7,11 @@ package View;
 import Service.TaiKhoanDao;
 import Model.TaiKhoan;
 import java.awt.Color;
+import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -26,8 +31,8 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        txt_Email.setText("");
-        txt_Pass.setText("");
+        txt_Email.setText("dh2k4k@gmail.com");
+        txt_Pass.setText("a");
     }
 
     /**
@@ -302,20 +307,11 @@ public class LoginView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        LoadingFrame lf = new LoadingFrame();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginView().setVisible(true);
             }
         });
-        try {
-            for (int i = 0; i <= 100; i++) {
-                Thread.sleep(50);
-              //   lf.jProgressBar1.setValue(i);
-
-            }
-        } catch (Exception e) {
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -383,9 +379,10 @@ public class LoginView extends javax.swing.JFrame {
                             // check chức vụ 
                             if (tt.getChucVuNV() == 1) {
                                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công dưới quyền quản lý");
-                                Main m = new Main(txt_Email.getText(), service.getNameNV(txt_Email.getText()), 1);
-                                m.setVisible(true);
-                                new LoadingFrame().setVisible(true);
+//                                Main m = new Main(txt_Email.getText(), service.getNameNV(txt_Email.getText()), 1);
+//                                m.setVisible(true);
+                                LoadingFrame loadingFrame = new LoadingFrame(txt_Email.getText(), service.getNameNV(txt_Email.getText()), 1);
+                                loadingFrame.setVisible(true);
                                 this.dispose();
                             } else {
                                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công dưới quyền nhân viên");
@@ -405,5 +402,6 @@ public class LoginView extends javax.swing.JFrame {
             }
         }
     }
+
 
 }

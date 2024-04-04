@@ -4,7 +4,13 @@
  */
 package View;
 
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JProgressBar;
+import javax.swing.border.Border;
 
 /**
  *
@@ -12,11 +18,24 @@ import javax.swing.JProgressBar;
  */
 public class LoadingFrame extends javax.swing.JFrame {
 
-    
-    public LoadingFrame() {
+    String email, nameNV;
+    int chucVu;
+
+    public LoadingFrame(String email, String nameNV, int chucVu) {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        Border border = BorderFactory.createLineBorder(Color.GRAY, 3);
+        gradientColor1.setBorder(border);
+        this.email = email;
+        this.nameNV = nameNV;
+        this.chucVu = chucVu;
+        lbl_nameNV.setText(nameNV + " has returned to the system");
+        this.showLoadingFrame();
+    }
+
+    private LoadingFrame() {
+        
     }
 
     /**
@@ -30,13 +49,23 @@ public class LoadingFrame extends javax.swing.JFrame {
 
         gradientColor1 = new ColorGradient2D.GradientColor();
         jLabel3 = new javax.swing.JLabel();
+        lbl_nameNV = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setName(""); // NOI18N
+        setUndecorated(true);
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 30)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 102, 102));
-        jLabel3.setText("WELLCOME");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-waving-hand-emoji-48.png"))); // NOI18N
+        jLabel3.setText("  Welcome !");
+
+        lbl_nameNV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbl_nameNV.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_nameNV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_nameNV.setText("Nhân viên");
 
         jProgressBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jProgressBar1.setForeground(java.awt.Color.orange);
@@ -46,34 +75,41 @@ public class LoadingFrame extends javax.swing.JFrame {
         gradientColor1.setLayout(gradientColor1Layout);
         gradientColor1Layout.setHorizontalGroup(
             gradientColor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gradientColor1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
             .addGroup(gradientColor1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(gradientColor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gradientColor1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(gradientColor1Layout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gradientColor1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbl_nameNV, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(128, 128, 128))
         );
         gradientColor1Layout.setVerticalGroup(
             gradientColor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gradientColor1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_nameNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gradientColor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(gradientColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gradientColor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(gradientColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -107,25 +143,39 @@ public class LoadingFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        LoadingFrame lf = new LoadingFrame(); 
+        LoadingFrame lf = new LoadingFrame();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                lf.setVisible(true);
+                new LoadingFrame().setVisible(true);
             }
         });
-        try {
-            for (int i = 0; i <= 100; i++) {
-                Thread.sleep(50);
-                lf.jProgressBar1.setValue(i);
-               
-            }
-        } catch (Exception e) {
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ColorGradient2D.GradientColor gradientColor1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel lbl_nameNV;
     // End of variables declaration//GEN-END:variables
+    private void showLoadingFrame() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <= 100; i++) {
+                    try {
+                        Thread.sleep(30);
+                        jProgressBar1.setValue(i);
+                        if (i == 100) {
+                            Main mn = new Main(email, nameNV, chucVu);
+                            mn.setVisible(true);
+                            dispose();
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+        }).start();
+    }
 }

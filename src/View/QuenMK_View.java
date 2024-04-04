@@ -251,7 +251,7 @@ public class QuenMK_View extends javax.swing.JFrame {
     private javax.swing.JTextField txt_maOTP;
     // End of variables declaration//GEN-END:variables
 
-    private void clickHover() {
+        private void clickHover() {
         // Nhập email 
         if (txt_Email.getText().isBlank()) {
             txt_Email.setBackground(Color.red);

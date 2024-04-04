@@ -39,6 +39,7 @@ public class Main extends javax.swing.JFrame {
         } else {
             lblChucVu.setText(" NHÂN VIÊN");
         }
+        // System.out.println(chucVu);
 
     }
 
