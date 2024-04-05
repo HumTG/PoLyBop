@@ -664,7 +664,7 @@ public class ThongKeView extends javax.swing.JPanel {
         mol = (DefaultTableModel) tblNV.getModel();
         mol.setRowCount(0);
         for (TKNhanVien_View t : listTkNV) {
-            mol.addRow(new Object[]{t.getMaNV(), t.getTenNV(), t.getSlSanPham(), t.getTongDoanhThu()});
+            mol.addRow(new Object[]{t.getMaNV(), t.getTenNV(), t.getSlSanPham(),numberFM.format(t.getTongDoanhThu())});
         }
     }
     
