@@ -4,6 +4,7 @@
  */
 package Service;
 
+import Model.TKNhanVien_Model;
 import Model.TKSanPham_Model;
 import java.util.List;
 
@@ -14,4 +15,5 @@ import java.util.List;
 public interface ITKSanPham_repos {
      List<TKSanPham_Model> getTKSanPham();
     List<TKSanPham_Model> getTKSanPhamTheoNgay(String batDau, String ketThuc);
+    List<TKNhanVien_Model> getTKNhanVien();
 }

@@ -18,6 +18,7 @@ public class TKDoanhThu_View {
     public TKDoanhThu_View() {
     }
 
+    
     public TKDoanhThu_View(int thang, int slSanPham, float tongGiaBan, float tongGiaGia, float tongDoanhThu) {
         this.thang = thang;
         this.slSanPham = slSanPham;

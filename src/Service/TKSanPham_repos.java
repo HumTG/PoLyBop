@@ -4,6 +4,7 @@
  */
 package Service;
 
+import Model.TKNhanVien_Model;
 import Model.TKSanPham_Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,5 +82,27 @@ public class TKSanPham_repos implements ITKSanPham_repos{
             return null;
         }
     }
-    
+    @Override
+    public List<TKNhanVien_Model> getTKNhanVien() {
+        List<TKNhanVien_Model> list = new ArrayList<>();
+        String sql = "SELECT NhanVien.Ma_NhanVien, NhanVien.HoTen,\n"
+                + "    SUM(HoaDonChiTiet.SoLuong) AS SoLuongBan,\n"
+                + "    SUM(HoaDonChiTiet.SoLuong * HoaDonChiTiet.DonGia) AS DoanhThu\n"
+                + "FROM HoaDonChiTiet\n"
+                + "JOIN HoaDon ON HoaDonChiTiet.ID_HoaDon = HoaDon.IDHoaDon\n"
+                + "JOIN NhanVien ON HoaDon.ID_NhanVien = NhanVien.IDNhanVien\n"
+                + "WHERE HoaDonChiTiet.TrangThai = 1"
+                + "GROUP BY NhanVien.Ma_NhanVien,NhanVien.HoTen";
+        ResultSet rs = JDBCHeper.Query(sql);
+        try {
+            while (rs.next()) {
+                list.add(new TKNhanVien_Model(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getFloat(4)));
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
 }
