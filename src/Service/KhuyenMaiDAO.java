@@ -23,7 +23,6 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
     public List<KhuyenMai> getKhuyenMai() {
         String sql = "SELECT [IDKhuyenMai]\n"
                 + "      ,[Ma_KhuyenMai]\n"
-                + "      ,[[KieuGiamGia]]\n"
                 + "      ,[GiaTri]\n"
                 + "      ,[NgayBatDau]\n"
                 + "      ,[NgayKetThuc]\n"
@@ -33,7 +32,8 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6), rs.getBoolean(7));
+                KhuyenMai km = new KhuyenMai(
+                        rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getBoolean(6));
                 listKM.add(km);
             }
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
     }
 
     public List<KhuyenMai> getAll() {
-        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, KieuGiamGia, GiaTri, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai where TrangThai = 1 ";
+        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, GiaTri, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai where TrangThai = 1 ";
         List<KhuyenMai> listKM = new ArrayList<>();
         try { // kết nối đc
             Connection con = DBconnect.getConnection();
@@ -66,7 +66,8 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
             ResultSet rs = ps.executeQuery();  // lấy kết quả của select ném ra tập kết quả rs;
             while (rs.next()) {
                 KhuyenMai km = new KhuyenMai(
-                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6), rs.getBoolean(7)
+                        rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getBoolean(6)
+                        
                 );
                 listKM.add(km);
             }
@@ -78,18 +79,24 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
     }
 
     public int addKhuenMai(KhuyenMai km) {
-        String sql = "INSERT INTO KhuyenMai (Ma_KhuyenMai, KieuGiamGia, MucGiamGia, NgayBatDau, NgayKetThuc, TrangThai) VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO KhuyenMai( Ma_KhuyenMai, GiaTri, NgayBatDau, NgayKetThuc, TrangThai) VALUES( ?, ?, ?, ?, ?)";
 
         int kq = 0;
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement ps = con.prepareCall(sql);
             ps.setString(1, km.getMa());
-            ps.setString(2, km.getKieuGiamGia());
-            ps.setInt(3, km.getGiaTri());
-            ps.setDate(4, new java.sql.Date(km.getNgayBatDau().getTime()));
-            ps.setDate(5, new java.sql.Date(km.getNgayKetThuc().getTime()));
-            ps.setBoolean(6, km.isTrangThai());
+            ps.setInt(2, km.getGiaTri());
+            java.util.Date startDate = km.getNgayBatDau();
+            java.sql.Date sqlStarDate = new java.sql.Date(startDate.getTime());
+            java.util.Date endDate = km.getNgayKetThuc();
+            java.sql.Date sqlEndDate = new java.sql.Date(endDate.getTime());
+            
+            /*ps.setDate(3, new java.sql.Date(km.getNgayBatDau().getTime()));
+            ps.setDate(4, new java.sql.Date(km.getNgayKetThuc().getTime()));*/
+             ps.setDate(3, sqlStarDate); // Thiết lập ngày bắt đầu
+               ps.setDate(4, sqlEndDate); // Thiết lập ngày kết thúc
+            ps.setBoolean(5, km.isTrangThai());
             kq = ps.executeUpdate();
 
         } catch (Exception e) {
@@ -99,17 +106,16 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
     }
     
     public int updateKM(String ma, KhuyenMai km){
-        String sql= "UPDATE KhuyenMai SET KieuGiamGia =?, MucGiamGia=?, NgayBatDau=?, NgayKetThuc=?, TrangThai=? WHERE Ma_KhuyenMai=?";
+        String sql= "UPDATE KhuyenMai SET GiaTri=?, NgayBatDau=?, NgayKetThuc=?, TrangThai=? WHERE Ma_KhuyenMai=?";
         try{
            Connection con = DBconnect.getConnection();
            PreparedStatement ps = con.prepareCall(sql);
             ps = con.prepareStatement(sql);
-            ps.setString(1,km.getKieuGiamGia());
-            ps.setInt(2, km.getGiaTri());
-            ps.setDate(3,new java.sql.Date(km.getNgayBatDau().getTime()));
-            ps.setDate(4, new java.sql.Date(km.getNgayKetThuc().getTime()));
-            ps.setBoolean(5, km.isTrangThai());
-            ps.setString(6,ma);
+            ps.setInt(1, km.getGiaTri());
+            ps.setDate(2,new java.sql.Date(km.getNgayBatDau().getTime()));
+            ps.setDate(3, new java.sql.Date(km.getNgayKetThuc().getTime()));
+            ps.setBoolean(4, km.isTrangThai());
+            ps.setString(5,ma);
             return ps.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
@@ -131,7 +137,7 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
 
     }
     public List<KhuyenMai> searchKM(String ma) {
-        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, KieuGiamGia, MucGiamGia, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai WHERE Ma_KhuyenMai LIKE ?";
+        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, GiaTri, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai WHERE Ma_KhuyenMai LIKE ?";
         List<KhuyenMai> listKM = new ArrayList<>();
         try { // kết nối đc
             Connection con = DBconnect.getConnection();
@@ -140,7 +146,7 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
             ResultSet rs = ps.executeQuery();  // lấy kết quả của select ném ra tập kết quả rs;
             while (rs.next()) {
                 KhuyenMai km = new KhuyenMai(
-                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6), rs.getBoolean(7)
+                       rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getBoolean(6) 
                 );
 
                 listKM.add(km);
@@ -153,17 +159,17 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
         }
     }
 
-    public List<KhuyenMai> locTT(int trangThai) {
+    public List<KhuyenMai> locTT(String trangThai) {
         List<KhuyenMai> listNV = new ArrayList<>();
         Connection con = DBconnect.getConnection();
-        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, KieuGiamGia, MucGiamGia, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai WHERE TrangThai LIKE ?";
+        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, GiaTri, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai WHERE TrangThai LIKE ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, trangThai);
+            ps.setString(1, trangThai);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 KhuyenMai km = new KhuyenMai(
-                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6), rs.getBoolean(7)
+                        rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getBoolean(6)
                 );
 
                 listNV.add(km);
