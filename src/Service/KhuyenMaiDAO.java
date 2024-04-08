@@ -58,7 +58,7 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
     }
 
     public List<KhuyenMai> getAll() {
-        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, KieuGiamGia, MucGiamGia, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai where TrangThai = 1 ";
+        String sql = "SELECT IDKhuyenMai, Ma_KhuyenMai, KieuGiamGia, GiaTri, NgayBatDau, NgayKetThuc, TrangThai  FROM KhuyenMai where TrangThai = 1 ";
         List<KhuyenMai> listKM = new ArrayList<>();
         try { // kết nối đc
             Connection con = DBconnect.getConnection();

@@ -305,7 +305,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
 
         jLabel8.setText("Lọc khuyến mại");
 
-        cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
+        cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "0" }));
         cbox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -520,7 +520,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                         .addGap(0, 309, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(227, 227, 227))))
         );

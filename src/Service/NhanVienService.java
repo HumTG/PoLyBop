@@ -26,7 +26,7 @@ public class NhanVienService {
 
     public List<NhanVien> getAll() {
         listNV = new ArrayList<>();
-        sql = "select Ma_NhanVien, HoTen,ChucVu, NgaySinh, SDT, Email, GioiTinh, DiaChi, MatKhau,TrangThai from NhanVien";
+        sql = "select Ma_NhanVien, HoTen,ChucVu, NgaySinh, SDT, Email, GioiTinh, DiaChi, MatKhau,TrangThai from NhanVien where TrangThai = 1";
         try {
             con = DBconnect.getConnection();
             ps = con.prepareStatement(sql);
