@@ -28,8 +28,8 @@ public class KhuyenMaiView extends javax.swing.JPanel {
     public KhuyenMaiView() {
         initComponents();
         this.fillTable(kms.getAll());
-       //  txtBatDau.setEnabled(false);
-       
+        //  txtBatDau.setEnabled(false);
+
     }
 
     void fillTable(List<KhuyenMai> list) {
@@ -60,7 +60,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         boolean trangThai;
 
         ma = txtMa.getText().trim();
-        
+
         ngayBD = txtBatDau.getDate();
         java.util.Date startDate = ngayBD;
         java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
@@ -92,7 +92,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày bắt đầu");
             return false;
         }
-        if(txtKetThuc.getDate() == null){
+        if (txtKetThuc.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc");
             return false;
         }
@@ -114,104 +114,27 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             // Kiểm tra ngày bắt đầu phải sau ngày kết thúc
             if (sqlStartDate.after(sqlEndDate)) {
                 // Xử lý khi ngày bắt đầu sau ngày kết thúc
-                JOptionPane.showMessageDialog(this,"Ngày bắt đầu phải trước ngày kết thúc.");
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc.");
                 return false;
             } else {
                 // Ngày bắt đầu hợp lệ, tiếp tục kiểm tra định dạng
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 sdf.setLenient(false); // Tắt chế độ tự động chấp nhận các giá trị không hợp lệ
-                
+
                 try {
                     // Kiểm tra định dạng của ngày bắt đầu
                     sdf.parse(ngayBD.toString());
                     // Kiểm tra định dạng của ngày kết thúc
                     sdf.parse(ngayKT.toString());
                     // Nếu cả hai đều hợp lệ, tiến hành xử lý tiếp theo
-                    JOptionPane.showMessageDialog(this,"Ngày bắt đầu và ngày kết thúc hợp lệ.");
+                    JOptionPane.showMessageDialog(this, "Ngày bắt đầu và ngày kết thúc hợp lệ.");
                 } catch (ParseException e) {
                     // Xử lý khi ngày có định dạng không hợp lệ
                     //JOptionPane.showMessageDialog(this,"Ngày có định dạng không hợp lệ.");
                 }
             }
-        } 
-        
-        // kiểm tra giá trị
-        if (txtGiaTri.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập Giá trị của khuyến mại");
-            return false;
-        }
-        try {
-            int giaTri = Integer.valueOf(txtGiaTri.getText());
-            if (giaTri < 0) {
-                JOptionPane.showMessageDialog(this, "Giá trị phải lớn hơn 0");
-                return false;
-            }
-
-        } catch (NumberFormatException ex) {
-                JOptionPane.showConfirmDialog(this, "Giá phải là số");
-            return false;
-        }
-        if (!rdCon.isSelected() && !rdKhongHoatDong.isSelected()) {
-        // Nếu không có ô nào được chọn, hiển thị thông báo lỗi
-        JOptionPane.showMessageDialog(null, "Vui lòng chọn trạng thái khuyến mãi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return false; // Trả về null để biểu thị rằng dữ liệu không hợp lệ
-    }
-
-        return true;
-
-    }
-    
-    boolean check1(){
-        if (txtMa.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập Mã khuyến mại");
-            return false;
-        }
-                if (txtBatDau.getDate() == null ) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày bắt đầu ");
-            return false;
-        }
-                if(txtKetThuc.getDate() == null){
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc");
-            return false;
         }
 
-                java.util.Date ngayBD = txtBatDau.getDate();
-
-        // Lấy ngày kết thúc từ txtKetThuc
-        java.util.Date ngayKT = txtKetThuc.getDate();
-
-        // Kiểm tra xem cả hai ngày không null
-        if (ngayBD != null && ngayKT != null) {
-            // Chuyển đổi thành java.sql.Date
-            java.sql.Date sqlStartDate = new java.sql.Date(ngayBD.getTime());
-            java.sql.Date sqlEndDate = new java.sql.Date(ngayKT.getTime());
-
-            // Kiểm tra ngày bắt đầu phải sau ngày kết thúc
-            if (sqlStartDate.after(sqlEndDate)) {
-                // Xử lý khi ngày bắt đầu sau ngày kết thúc
-                JOptionPane.showMessageDialog(this,"Ngày bắt đầu phải trước ngày kết thúc.");
-                return false;
-            } else {
-                // Ngày bắt đầu hợp lệ, tiếp tục kiểm tra định dạng
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                sdf.setLenient(false); // Tắt chế độ tự động chấp nhận các giá trị không hợp lệ
-                try {
-                    // Kiểm tra định dạng của ngày bắt đầu
-                    sdf.parse(ngayBD.toString());
-                    // Kiểm tra định dạng của ngày kết thúc
-                    sdf.parse(ngayKT.toString());
-                    // Nếu cả hai đều hợp lệ, tiến hành xử lý tiếp theo
-                    JOptionPane.showMessageDialog(this,"Ngày bắt đầu và ngày kết thúc hợp lệ.");
-                } catch (ParseException e) {
-                    // Xử lý khi ngày có định dạng không hợp lệ
-                    //JOptionPane.showMessageDialog(this,"Ngày có định dạng không hợp lệ.");
-                }
-            }
-        } 
-        /*if (txtKetThuc.getDate().before(txtBatDau.getDate())) {
-            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
-        }*/
-        
         // kiểm tra giá trị
         if (txtGiaTri.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập Giá trị của khuyến mại");
@@ -229,10 +152,87 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             return false;
         }
         if (!rdCon.isSelected() && !rdKhongHoatDong.isSelected()) {
-        // Nếu không có ô nào được chọn, hiển thị thông báo lỗi
-        JOptionPane.showMessageDialog(null, "Vui lòng chọn trạng thái khuyến mãi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return false; // Trả về null để biểu thị rằng dữ liệu không hợp lệ
+            // Nếu không có ô nào được chọn, hiển thị thông báo lỗi
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn trạng thái khuyến mãi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false; // Trả về null để biểu thị rằng dữ liệu không hợp lệ
+        }
+
+        return true;
+
     }
+
+    boolean check1() {
+        if (txtMa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập Mã khuyến mại");
+            return false;
+        }
+        if (txtBatDau.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày bắt đầu ");
+            return false;
+        }
+        if (txtKetThuc.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc");
+            return false;
+        }
+
+        java.util.Date ngayBD = txtBatDau.getDate();
+
+        // Lấy ngày kết thúc từ txtKetThuc
+        java.util.Date ngayKT = txtKetThuc.getDate();
+
+        // Kiểm tra xem cả hai ngày không null
+        if (ngayBD != null && ngayKT != null) {
+            // Chuyển đổi thành java.sql.Date
+            java.sql.Date sqlStartDate = new java.sql.Date(ngayBD.getTime());
+            java.sql.Date sqlEndDate = new java.sql.Date(ngayKT.getTime());
+
+            // Kiểm tra ngày bắt đầu phải sau ngày kết thúc
+            if (sqlStartDate.after(sqlEndDate)) {
+                // Xử lý khi ngày bắt đầu sau ngày kết thúc
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc.");
+                return false;
+            } else {
+                // Ngày bắt đầu hợp lệ, tiếp tục kiểm tra định dạng
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                sdf.setLenient(false); // Tắt chế độ tự động chấp nhận các giá trị không hợp lệ
+                try {
+                    // Kiểm tra định dạng của ngày bắt đầu
+                    sdf.parse(ngayBD.toString());
+                    // Kiểm tra định dạng của ngày kết thúc
+                    sdf.parse(ngayKT.toString());
+                    // Nếu cả hai đều hợp lệ, tiến hành xử lý tiếp theo
+                    JOptionPane.showMessageDialog(this, "Ngày bắt đầu và ngày kết thúc hợp lệ.");
+                } catch (ParseException e) {
+                    // Xử lý khi ngày có định dạng không hợp lệ
+                    //JOptionPane.showMessageDialog(this,"Ngày có định dạng không hợp lệ.");
+                }
+            }
+        }
+        /*if (txtKetThuc.getDate().before(txtBatDau.getDate())) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
+        }*/
+
+        // kiểm tra giá trị
+        if (txtGiaTri.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập Giá trị của khuyến mại");
+            return false;
+        }
+        try {
+            int giaTri = Integer.valueOf(txtGiaTri.getText());
+            if (giaTri < 0) {
+                JOptionPane.showMessageDialog(this, "Giá trị phải lớn hơn 0");
+                return false;
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showConfirmDialog(this, "Giá phải là số");
+            return false;
+        }
+        if (!rdCon.isSelected() && !rdKhongHoatDong.isSelected()) {
+            // Nếu không có ô nào được chọn, hiển thị thông báo lỗi
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn trạng thái khuyến mãi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false; // Trả về null để biểu thị rằng dữ liệu không hợp lệ
+        }
 
         return true;
     }
@@ -253,10 +253,10 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         }
         return false; // Default to false if an exception occurs or code doesn't exist
     }
+
     private void loadBanGhi() {
         tblKhuyenMai.setRowSelectionInterval(index, index);
     }
-
 
 // Phương thức để kiểm tra ngày bắt đầu và ngày kết thúc
     /*public static boolean validateDates(String startDateStr, String endDateStr) {
@@ -273,7 +273,6 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             return false;
         }
     }*/
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -385,7 +384,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         jLabel8.setText("Lọc khuyến mại");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(648, 27, 94, -1));
 
-        cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "0" }));
+        cbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn Hoạt Động", "Không Hoạt Động" }));
         cbox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -595,7 +594,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
 
     private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtMaActionPerformed
 
     private void rdConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdConActionPerformed
@@ -604,38 +603,38 @@ public class KhuyenMaiView extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        
+
         index = tblKhuyenMai.getSelectedRow();
         String ma;
-        if(index <0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng để sửa");
-        }else{// đã chọn
+        } else {// đã chọn
             // lấy mã sv từ table dòng index cột 1
             int chon;
             chon = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (chon != JOptionPane.YES_OPTION) {
                 return;
-        } else {
-            if (check1()) {
-            // Lấy mã từ bảng
-            ma = tblKhuyenMai.getValueAt(index, 1).toString();
-            // Đảm bảo rằng txtMa không thay đổi giá trị của nó
-            String maHienTai = txtMa.getText();
-            if (!ma.equals(maHienTai)) {
-                JOptionPane.showMessageDialog(this, "Không thể thay đổi mã.");
-                return;
-            }
-            
-            // Thực hiện các thay đổi khác nếu cần
-            // Sau đó, thực hiện cập nhật dữ liệu
-            if (kms.updateKM(ma, this.readForm()) > 0) {
-                JOptionPane.showMessageDialog(this, "Sửa thành công");
-                this.fillTable(kms.getAll());
             } else {
-                JOptionPane.showMessageDialog(this, "Sửa thất bại");
-            
-            }
-        }
+                if (check1()) {
+                    // Lấy mã từ bảng
+                    ma = tblKhuyenMai.getValueAt(index, 1).toString();
+                    // Đảm bảo rằng txtMa không thay đổi giá trị của nó
+                    String maHienTai = txtMa.getText();
+                    if (!ma.equals(maHienTai)) {
+                        JOptionPane.showMessageDialog(this, "Không thể thay đổi mã.");
+                        return;
+                    }
+
+                    // Thực hiện các thay đổi khác nếu cần
+                    // Sau đó, thực hiện cập nhật dữ liệu
+                    if (kms.updateKM(ma, this.readForm()) > 0) {
+                        JOptionPane.showMessageDialog(this, "Sửa thành công");
+                        this.fillTable(kms.getAll());
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa thất bại");
+
+                    }
+                }
             }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -697,8 +696,14 @@ public class KhuyenMaiView extends javax.swing.JPanel {
     private void cboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxActionPerformed
         // TODO add your handling code here:
         String selectedTt = ((String) cbox.getSelectedItem());
-        List<KhuyenMai> listKhuyenMai = kms.locTT(selectedTt);
-       this.fillTable(listKhuyenMai);
+        String hd;
+        if (selectedTt.equals("Còn Hoạt Động")) {
+            hd = "1";
+        } else {
+            hd = "0";
+        }
+        List<KhuyenMai> listKhuyenMai = kms.locTT(hd);
+        this.fillTable(listKhuyenMai);
     }//GEN-LAST:event_cboxActionPerformed
 
     private void btnTimKiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiem1ActionPerformed
@@ -738,22 +743,22 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         // TODO add your handling code here:
         index = tblKhuyenMai.getSelectedRow();
         String ma;
-        if(index <0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng để xóa");
         }
         int chon;
         chon = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (chon != JOptionPane.YES_OPTION) {
             return;
-        
-        }else{// đã chọn
+
+        } else {// đã chọn
             // lấy mã sv từ table dòng index cột 1
             ma = tblKhuyenMai.getValueAt(index, 1).toString();
-            if(kms.deleteKM(ma)>0){
+            if (kms.deleteKM(ma) > 0) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
                 this.fillTable(kms.getAll());
-                
-            }else{ // không xóa được
+
+            } else { // không xóa được
                 JOptionPane.showMessageDialog(this, "Xóa thất bại");
             }
         }
@@ -771,9 +776,9 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         txtMa.setText(null);
         txtBatDau.setDate(null);
         txtKetThuc.setDate(null);
-        
+
         txtGiaTri.setText(null);
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

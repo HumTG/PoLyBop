@@ -297,7 +297,7 @@ public class ThongKeView extends javax.swing.JPanel {
         pnlLoaiThoiGianLayout.setVerticalGroup(
             pnlLoaiThoiGianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoaiThoiGianLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlLoaiThoiGianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnTK)
                     .addGroup(pnlLoaiThoiGianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -451,9 +451,17 @@ public class ThongKeView extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Số Lượng Sản Phẩm", "Doanh thu"
+                "Mã Nhân Viên", "Tên Nhân Viên", "Số lượng sản phẩm đã bán", "Doanh thu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblNV);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
