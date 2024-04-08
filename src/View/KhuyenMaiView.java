@@ -73,7 +73,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         if (rdCon.isSelected()) {
             trangThai = true;
         } else {
-            trangThai = true;
+            trangThai = false;
         }
         return new KhuyenMai(ma, giaTri, ngayBD, ngayKT, trangThai);
     }
