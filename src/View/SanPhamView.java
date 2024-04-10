@@ -21,6 +21,12 @@ import javax.swing.table.TableRowSorter;
 import Service.ViDao;
 import Repository.MsgBox;
 import Service.ThuongHieuDao;
+import java.io.FileOutputStream;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
@@ -94,6 +100,7 @@ public class SanPhamView extends javax.swing.JPanel {
         txtMaVi = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnThem1 = new javax.swing.JButton();
+        btnExportExcel = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -383,6 +390,14 @@ public class SanPhamView extends javax.swing.JPanel {
             }
         });
 
+        btnExportExcel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnExportExcel.setText("Export Excel");
+        btnExportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportExcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -413,7 +428,9 @@ public class SanPhamView extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4))
+                                .addComponent(jButton4)
+                                .addGap(44, 44, 44)
+                                .addComponent(btnExportExcel))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -481,11 +498,12 @@ public class SanPhamView extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(btnExportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -664,7 +682,12 @@ public class SanPhamView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLammoiActionPerformed
 
+    private void btnExportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelActionPerformed
+        showSaveDialogAndExport();
+    }//GEN-LAST:event_btnExportExcelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportExcel;
     private javax.swing.JButton btnLammoi;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
@@ -1052,4 +1075,62 @@ public class SanPhamView extends javax.swing.JPanel {
             jTabbedPane1.setSelectedIndex(0);
         }
     }
+         private void showSaveDialogAndExport() {
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home") + "/Downloads");
+        fileChooser.setDialogTitle("Save Excel File");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public boolean accept(File f) {
+                return f.getName().toLowerCase().endsWith(".xls") || f.isDirectory();
+            }
+
+            public String getDescription() {
+                return "Excel Files (*.xls)";
+            }
+        });
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            // Add .xls extension if not present
+            if (!fileToSave.getAbsolutePath().endsWith(".xls")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xls");
+            }
+            exportToExcel(fileToSave);
+        }
+    }
+        private void exportToExcel(File fileToSave) {
+        DefaultTableModel model = (DefaultTableModel) tblConhang.getModel();
+        Workbook workbook = new HSSFWorkbook(); // Sử dụng HSSFWorkbook cho định dạng .xls
+        Sheet sheet = workbook.createSheet("KhachHangData");
+
+        // Tạo header từ tên cột
+        Row headerRow = sheet.createRow(0);
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            Cell cell = headerRow.createCell(col);
+            cell.setCellValue(model.getColumnName(col));
+        }
+
+        // Thêm dữ liệu từ JTable vào Excel
+        for (int row = 0; row < model.getRowCount(); row++) {
+            Row excelRow = sheet.createRow(row + 1);
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                Cell cell = excelRow.createCell(col);
+                cell.setCellValue(model.getValueAt(row, col).toString());
+            }
+        }
+
+        // Định dạng lại các cột (ví dụ: làm to rộng cột A)
+         for (int col = 0; col < 10; col++) {
+            sheet.setColumnWidth(col, 5000); // 3000 đơn vị là width, tùy thuộc vào đơn vị của bạn
+        }
+
+        // Lưu Workbook vào file Excel
+        try (FileOutputStream outputStream = new FileOutputStream(fileToSave)) {
+            workbook.write(outputStream);
+            JOptionPane.showMessageDialog(this, "Export Excel successful!\nFile saved at: " + fileToSave.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Export Excel failed!");
+        }
+    } 
 }

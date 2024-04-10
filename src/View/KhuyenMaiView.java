@@ -14,6 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import Repository.DBconnect;
+import java.io.File;
+import java.io.FileOutputStream;
+import javax.swing.JFileChooser;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
@@ -315,6 +323,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         rdCon = new javax.swing.JRadioButton();
         rdKhongHoatDong = new javax.swing.JRadioButton();
         jButton3 = new javax.swing.JButton();
+        btnExportExcel = new javax.swing.JButton();
 
         rdHet.setText("Hết hạn");
         rdHet.addActionListener(new java.awt.event.ActionListener() {
@@ -425,7 +434,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                 btnThemActionPerformed(evt);
             }
         });
-        jPanel2.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 192, 172, -1));
+        jPanel2.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 172, -1));
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSua.setText("Sửa khuyến mại");
@@ -434,7 +443,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                 btnSuaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(799, 192, 172, -1));
+        jPanel2.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 190, 172, -1));
 
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnXoa.setText("Xóa khuyến mại");
@@ -443,7 +452,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                 btnXoaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(799, 241, 172, -1));
+        jPanel2.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 230, 172, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -501,7 +510,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 6, -1, -1));
 
         jPanel4.setBorder(new javax.swing.border.MatteBorder(null));
@@ -581,7 +590,16 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 237, 172, 30));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 172, 30));
+
+        btnExportExcel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnExportExcel.setText("Export");
+        btnExportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportExcelActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnExportExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 90, 70));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 1081, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -781,8 +799,13 @@ public class KhuyenMaiView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnExportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelActionPerformed
+        showSaveDialogAndExport();
+    }//GEN-LAST:event_btnExportExcelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportExcel;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem1;
@@ -817,4 +840,63 @@ public class KhuyenMaiView extends javax.swing.JPanel {
     private javax.swing.JTextField txtMa;
     private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
+
+       private void showSaveDialogAndExport() {
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home") + "/Downloads");
+        fileChooser.setDialogTitle("Save Excel File");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public boolean accept(File f) {
+                return f.getName().toLowerCase().endsWith(".xls") || f.isDirectory();
+            }
+
+            public String getDescription() {
+                return "Excel Files (*.xls)";
+            }
+        });
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            // Add .xls extension if not present
+            if (!fileToSave.getAbsolutePath().endsWith(".xls")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xls");
+            }
+            exportToExcel(fileToSave);
+        }
+    }
+        private void exportToExcel(File fileToSave) {
+        DefaultTableModel model = (DefaultTableModel) tblKhuyenMai.getModel();
+        Workbook workbook = new HSSFWorkbook(); // Sử dụng HSSFWorkbook cho định dạng .xls
+        Sheet sheet = workbook.createSheet("KhachHangData");
+
+        // Tạo header từ tên cột
+        Row headerRow = sheet.createRow(0);
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            Cell cell = headerRow.createCell(col);
+            cell.setCellValue(model.getColumnName(col));
+        }
+
+        // Thêm dữ liệu từ JTable vào Excel
+        for (int row = 0; row < model.getRowCount(); row++) {
+            Row excelRow = sheet.createRow(row + 1);
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                Cell cell = excelRow.createCell(col);
+                cell.setCellValue(model.getValueAt(row, col).toString());
+            }
+        }
+
+        // Định dạng lại các cột (ví dụ: làm to rộng cột A)
+         for (int col = 0; col < 10; col++) {
+            sheet.setColumnWidth(col, 5000); // 3000 đơn vị là width, tùy thuộc vào đơn vị của bạn
+        }
+
+        // Lưu Workbook vào file Excel
+        try (FileOutputStream outputStream = new FileOutputStream(fileToSave)) {
+            workbook.write(outputStream);
+            JOptionPane.showMessageDialog(this, "Export Excel successful!\nFile saved at: " + fileToSave.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Export Excel failed!");
+        }
+    } 
 }

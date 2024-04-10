@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -22,7 +23,7 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     String email, nameNV;
-    int chucVu;
+    int chucVu = 9;
 
     public Main(String email, String nameNV, int chucVu) {
         initComponents();
@@ -261,86 +262,121 @@ public class Main extends javax.swing.JFrame {
 
     private void lbl_SanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_SanPhamMouseClicked
         // Click sản phẩm 
-        setColor(lbl_SanPham);
+        if (chucVu == 1) {
+            setColor(lbl_SanPham);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_BanHang);
-        resetColor(lbl_thongke);
-        resetColor(lbl_HoaDon);
-        resetColor(lbl_KhachHang);
-        resetColor(lbl_NhanVien);
-        resetColor(lbl_KhuyenMai);
-        showPanel(new SanPhamView());
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_BanHang);
+            resetColor(lbl_thongke);
+            resetColor(lbl_HoaDon);
+            resetColor(lbl_KhachHang);
+            resetColor(lbl_NhanVien);
+            resetColor(lbl_KhuyenMai);
+            showPanel(new SanPhamView());
+        } else if (chucVu == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền sử dụng chức năng này");
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập !");
+        }
+
     }//GEN-LAST:event_lbl_SanPhamMouseClicked
 
     private void lbl_HoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_HoaDonMouseClicked
         // Click hóa đơn 
-        setColor(lbl_HoaDon);
+        if (chucVu == 1 || chucVu == 0) {
+            setColor(lbl_HoaDon);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_BanHang);
-        resetColor(lbl_SanPham);
-        resetColor(lbl_thongke);
-        resetColor(lbl_KhachHang);
-        resetColor(lbl_NhanVien);
-        resetColor(lbl_KhuyenMai);
-        showPanel(new HoaDonView());
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_BanHang);
+            resetColor(lbl_SanPham);
+            resetColor(lbl_thongke);
+            resetColor(lbl_KhachHang);
+            resetColor(lbl_NhanVien);
+            resetColor(lbl_KhuyenMai);
+            showPanel(new HoaDonView());
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập ! ");
+        }
     }//GEN-LAST:event_lbl_HoaDonMouseClicked
 
     private void lbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_NhanVienMouseClicked
         // Click Nhân Viên 
-        setColor(lbl_NhanVien);
+        if (chucVu == 1) {
+            setColor(lbl_NhanVien);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_BanHang);
-        resetColor(lbl_SanPham);
-        resetColor(lbl_HoaDon);
-        resetColor(lbl_KhachHang);
-        resetColor(lbl_thongke);
-        resetColor(lbl_KhuyenMai);
-        showPanel(new NhanVienView());
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_BanHang);
+            resetColor(lbl_SanPham);
+            resetColor(lbl_HoaDon);
+            resetColor(lbl_KhachHang);
+            resetColor(lbl_thongke);
+            resetColor(lbl_KhuyenMai);
+            showPanel(new NhanVienView());
+        } else if (chucVu == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền sử dụng chức năng này");
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập !");
+        }
     }//GEN-LAST:event_lbl_NhanVienMouseClicked
 
     private void lbl_KhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_KhachHangMouseClicked
         // CLick khách hàng 
-        setColor(lbl_KhachHang);
+        if (chucVu == 1 || chucVu == 0) {
+            setColor(lbl_KhachHang);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_BanHang);
-        resetColor(lbl_SanPham);
-        resetColor(lbl_HoaDon);
-        resetColor(lbl_thongke);
-        resetColor(lbl_NhanVien);
-        resetColor(lbl_KhuyenMai);
-        showPanel(new KhachHangView());
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_BanHang);
+            resetColor(lbl_SanPham);
+            resetColor(lbl_HoaDon);
+            resetColor(lbl_thongke);
+            resetColor(lbl_NhanVien);
+            resetColor(lbl_KhuyenMai);
+            showPanel(new KhachHangView());
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập ! ");
+        }
     }//GEN-LAST:event_lbl_KhachHangMouseClicked
 
     private void lbl_KhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_KhuyenMaiMouseClicked
         // Click khuyến mãi 
-        setColor(lbl_KhuyenMai);
+        if (chucVu == 1) {
+            setColor(lbl_KhuyenMai);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_BanHang);
-        resetColor(lbl_SanPham);
-        resetColor(lbl_HoaDon);
-        resetColor(lbl_KhachHang);
-        resetColor(lbl_NhanVien);
-        resetColor(lbl_thongke);
-        showPanel(new KhuyenMaiView());
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_BanHang);
+            resetColor(lbl_SanPham);
+            resetColor(lbl_HoaDon);
+            resetColor(lbl_KhachHang);
+            resetColor(lbl_NhanVien);
+            resetColor(lbl_thongke);
+            showPanel(new KhuyenMaiView());
+        }
+        else if(chucVu == 0){
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền sử dụng chức năng này !");
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập ! ");
+        }
     }//GEN-LAST:event_lbl_KhuyenMaiMouseClicked
 
     private void lbl_thongkeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_thongkeMouseClicked
         // CLick thống kê 
-        setColor(lbl_thongke);
+        if (chucVu == 1) {
+            setColor(lbl_thongke);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_BanHang);
-        resetColor(lbl_SanPham);
-        resetColor(lbl_HoaDon);
-        resetColor(lbl_KhachHang);
-        resetColor(lbl_NhanVien);
-        resetColor(lbl_KhuyenMai);
-        showPanel(new ThongKeView());
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_BanHang);
+            resetColor(lbl_SanPham);
+            resetColor(lbl_HoaDon);
+            resetColor(lbl_KhachHang);
+            resetColor(lbl_NhanVien);
+            resetColor(lbl_KhuyenMai);
+            showPanel(new ThongKeView());
+        } else if (chucVu == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền sử dụng chức năng này");
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập !");
+        }
     }//GEN-LAST:event_lbl_thongkeMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -363,16 +399,20 @@ public class Main extends javax.swing.JFrame {
 
     private void lbl_BanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_BanHangMouseClicked
         // Click bán hàng
-        setColor(lbl_BanHang);
+        if (chucVu == 1 || chucVu == 0) {
+            setColor(lbl_BanHang);
 
-        resetColor(lbl_Trangchu);
-        resetColor(lbl_thongke);
-        resetColor(lbl_SanPham);
-        resetColor(lbl_HoaDon);
-        resetColor(lbl_KhachHang);
-        resetColor(lbl_NhanVien);
-        resetColor(lbl_KhuyenMai);
-        showPanel(new BanHangView(nameNV, email));
+            resetColor(lbl_Trangchu);
+            resetColor(lbl_thongke);
+            resetColor(lbl_SanPham);
+            resetColor(lbl_HoaDon);
+            resetColor(lbl_KhachHang);
+            resetColor(lbl_NhanVien);
+            resetColor(lbl_KhuyenMai);
+            showPanel(new BanHangView(nameNV, email));
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập ! ");
+        }
     }//GEN-LAST:event_lbl_BanHangMouseClicked
 
     /**

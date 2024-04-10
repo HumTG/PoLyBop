@@ -386,8 +386,8 @@ public class LoginView extends javax.swing.JFrame {
                                 this.dispose();
                             } else {
                                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công dưới quyền nhân viên");
-                                Main m = new Main(txt_Email.getText(), service.getNameNV(txt_Email.getText()), 0);
-                                m.setVisible(true);
+                                LoadingFrame loadingFrame = new LoadingFrame(txt_Email.getText(), service.getNameNV(txt_Email.getText()), 0);
+                                loadingFrame.setVisible(true);
                                 this.dispose();
                             }
 

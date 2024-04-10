@@ -22,6 +22,10 @@ import Service.KhachHangService;
 import Service.KhuyenMaiDAO;
 import static java.awt.image.ImageObserver.HEIGHT;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -33,7 +37,6 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class BanHangView extends javax.swing.JPanel {
 
     // 12h43 làm code
-    
     /**
      * Creates new form BanHangView
      */
@@ -44,6 +47,8 @@ public class BanHangView extends javax.swing.JPanel {
     KhuyenMaiDAO khuyenMaiservice = new KhuyenMaiDAO();
     DefaultTableModel mol = new DefaultTableModel();
     String tenNV, email;
+    // Định dạng ngày tháng
+    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     int index = -1;
 
@@ -709,7 +714,7 @@ public class BanHangView extends javax.swing.JPanel {
 
     // Lấy ra khách hàng từ bảng lên form 
     private void getKH() {
-        int index_KH = tbl_KhachHang.getSelectedRow();
+        int index_KH = tbl_KhachHang.getSelectedRow() + 1;
         KhachHang kh = khachHangService.firdKhachHangHD(txt_KhachHang.getText()).get(index_KH);
         txt_KhachHang1.setText(kh.getTenKhachHang());
     }
@@ -936,54 +941,52 @@ public class BanHangView extends javax.swing.JPanel {
             } // Đã chọn hóa đơn 
             else {
                 try {
-                    if(txt_KhachHang1.getText().equals("")) {
+                    if (txt_KhachHang1.getText().equals("")) {
                         JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng !");
-                    } 
-                    // nếu khách không muốn cung cấp thông tin 
+                    } // nếu khách không muốn cung cấp thông tin 
                     else if (txt_KhachHang1.getText().equals("Khách hàng lẻ")) {
                         if (rdo_TienMat.isSelected()) {
                             double moneyNhan = Integer.valueOf(JOptionPane.showInputDialog("Nhập số tiền nhận của khách "));
                             if (moneyNhan == Double.valueOf(lbl_TongTien.getText())) {
-                                serviceHD.thanhToanHD(lbl_maHD.getText(),1, Double.valueOf(lbl_TongTien.getText()), getPTTT());
+                                serviceHD.thanhToanHD(lbl_maHD.getText(), 1, Double.valueOf(lbl_TongTien.getText()), getPTTT());
                                 this.fillTableHD(serviceHD.getAllHDChuaHT());
                                 JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
                             } else if (moneyNhan < Double.valueOf(lbl_TongTien.getText())) {
                                 JOptionPane.showMessageDialog(this, "Thanh toán thât bại ! \nKhách đưa thiếu tiền !");
                             } else {
                                 double moneyTra = moneyNhan - Double.valueOf(lbl_TongTien.getText());
-                                serviceHD.thanhToanHD(lbl_maHD.getText(),1, Double.valueOf(lbl_TongTien.getText()), getPTTT());
+                                serviceHD.thanhToanHD(lbl_maHD.getText(), 1, Double.valueOf(lbl_TongTien.getText()), getPTTT());
                                 this.fillTableHD(serviceHD.getAllHDChuaHT());
                                 JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !" + "\nSố tiền thối khách : " + String.valueOf(moneyTra) + " VNĐ");
 
                             }
                         } else if (rdo_ChuyenKhoan.isEnabled()) {
-                            serviceHD.thanhToanHD(lbl_maHD.getText(),1, Double.valueOf(lbl_TongTien.getText()), getPTTT());
+                            serviceHD.thanhToanHD(lbl_maHD.getText(), 1, Double.valueOf(lbl_TongTien.getText()), getPTTT());
                             this.fillTableHD(serviceHD.getAllHDChuaHT());
                             JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
                         }
-                    }
-                    // Khách cung cấp thông tin 
-                    else if(txt_KhachHang1.getText().isBlank()){
+                    } // Khách cung cấp thông tin 
+                    else if (txt_KhachHang1.getText().isBlank()) {
                         if (rdo_TienMat.isSelected()) {
-                        double moneyNhan = Integer.valueOf(JOptionPane.showInputDialog("Nhập số tiền nhận của khách "));
-                        if (moneyNhan == Double.valueOf(lbl_TongTien.getText())) {
+                            double moneyNhan = Integer.valueOf(JOptionPane.showInputDialog("Nhập số tiền nhận của khách "));
+                            if (moneyNhan == Double.valueOf(lbl_TongTien.getText())) {
+                                serviceHD.thanhToanHD(lbl_maHD.getText(), getIDKH(), Double.valueOf(lbl_TongTien.getText()), getPTTT());
+                                this.fillTableHD(serviceHD.getAllHDChuaHT());
+                                JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
+                            } else if (moneyNhan < Double.valueOf(lbl_TongTien.getText())) {
+                                JOptionPane.showMessageDialog(this, "Thanh toán thât bại ! \nKhách đưa thiếu tiền !");
+                            } else {
+                                double moneyTra = moneyNhan - Double.valueOf(lbl_TongTien.getText());
+                                serviceHD.thanhToanHD(lbl_maHD.getText(), getIDKH(), Double.valueOf(lbl_TongTien.getText()), getPTTT());
+                                this.fillTableHD(serviceHD.getAllHDChuaHT());
+                                JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !" + "\nSố tiền thối khách : " + String.valueOf(moneyTra) + " VNĐ");
+
+                            }
+                        } else if (rdo_ChuyenKhoan.isEnabled()) {
                             serviceHD.thanhToanHD(lbl_maHD.getText(), getIDKH(), Double.valueOf(lbl_TongTien.getText()), getPTTT());
                             this.fillTableHD(serviceHD.getAllHDChuaHT());
                             JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
-                        } else if (moneyNhan < Double.valueOf(lbl_TongTien.getText())) {
-                            JOptionPane.showMessageDialog(this, "Thanh toán thât bại ! \nKhách đưa thiếu tiền !");
-                        } else {
-                            double moneyTra = moneyNhan - Double.valueOf(lbl_TongTien.getText());
-                            serviceHD.thanhToanHD(lbl_maHD.getText(), getIDKH(), Double.valueOf(lbl_TongTien.getText()), getPTTT());
-                            this.fillTableHD(serviceHD.getAllHDChuaHT());
-                            JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công !" + "\nSố tiền thối khách : " + String.valueOf(moneyTra) + " VNĐ");
-
                         }
-                    } else if (rdo_ChuyenKhoan.isEnabled()) {
-                        serviceHD.thanhToanHD(lbl_maHD.getText(), getIDKH(), Double.valueOf(lbl_TongTien.getText()), getPTTT());
-                        this.fillTableHD(serviceHD.getAllHDChuaHT());
-                        JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
-                    }
                     }
                 } catch (Exception e) {
                     System.out.println(e);
@@ -998,6 +1001,19 @@ public class BanHangView extends javax.swing.JPanel {
         }
     }
 
+    // Kiểm tra ngày hôm nay có nằm trong khoảng khuyến mãi hay không
+    private boolean checkDateKM(Date startDateStr, Date endDateStr) {
+        try {
+            Date today = new Date();
+//            Date startDate = dateFormat.parse(startDateStr);
+//            Date endDate = dateFormat.parse(endDateStr);
+            return today.compareTo(startDateStr) >= 0 && today.compareTo(endDateStr) <= 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private void addMaGiamGia() {
         try {
             index = tbl_hoaDon.getSelectedRow();
@@ -1007,28 +1023,40 @@ public class BanHangView extends javax.swing.JPanel {
             else {
                 String maKM = txt_MaGiamGia.getText().trim();
                 int check_KM = 0;
+                int check_Han_KM = 0;
+                // Check mã khuyến mãi 
                 if (!maKM.isBlank()) {
                     for (KhuyenMai x : khuyenMaiservice.getKhuyenMai()) {
                         if (maKM.equalsIgnoreCase(x.getMa())) {
                             check_KM = 1;
                             // mã hóa đơn đúng
-                            int giaTriKM = khuyenMaiservice.getGiaTriKM(maKM);
-                            JOptionPane.showMessageDialog(this, "Bạn đã áp dụng thành công mã " + maKM + "\nBạn được giảm giá " + giaTriKM + "% vào tổng tiền hóa đơn");
-                            float tien = (float) giaTriKM / 100;
-                            double tienGiamGia = Double.valueOf(lbl_TongTien.getText()) * tien;
-                            double tongTien = Double.valueOf(lbl_TongTien.getText()) - tienGiamGia;
-                            double tongTien_roundedUp = Math.ceil(tongTien); // Làm tròn lên
-                            lbl_TongTien.setText(String.valueOf(tongTien_roundedUp));
-                            txt_MaGiamGia.setText("");
-                            System.out.println("Tổng Tiền : " + lbl_TongTien.getText());
-                            System.out.println("Tiền giảm giá : " + tienGiamGia);
-                            System.out.println("giảm giá : " + tien);
-                            System.out.println("Thành tiền : " + tongTien_roundedUp);
+                            if (checkDateKM(x.getNgayBatDau(), x.getNgayKetThuc())) {
+                                // Ngày hôm nay nằm trong khoảng khuyến mãi
+                                check_Han_KM = 1 ; 
+                                System.out.println("Ngày hôm nay nằm trong khoảng khuyến mãi");
+                                // Tiếp tục xử lý giảm giá và cập nhật tổng tiền hóa đơn
+                                int giaTriKM = khuyenMaiservice.getGiaTriKM(maKM);
+                                JOptionPane.showMessageDialog(this, "Bạn đã áp dụng thành công mã " + maKM + "\nBạn được giảm giá " + giaTriKM + "% vào tổng tiền hóa đơn");
+                                float tien = (float) giaTriKM / 100;
+                                double tienGiamGia = Double.valueOf(lbl_TongTien.getText()) * tien;
+                                double tongTien = Double.valueOf(lbl_TongTien.getText()) - tienGiamGia;
+                                double tongTien_roundedUp = Math.ceil(tongTien); // Làm tròn lên
+                                lbl_TongTien.setText(String.valueOf(tongTien_roundedUp));
+                                txt_MaGiamGia.setText("");
+                                System.out.println("Tổng Tiền : " + lbl_TongTien.getText());
+                                System.out.println("Tiền giảm giá : " + tienGiamGia);
+                                System.out.println("giảm giá : " + tien);
+                                System.out.println("Thành tiền : " + tongTien_roundedUp);
+                            } else {
+                                System.out.println("hết hạn");
+                            }
                         }
                     }
                     // mã không đúng , không tồn tại
                     if (check_KM == 0) {
                         JOptionPane.showMessageDialog(this, "Mã khuyến mãi không đúng !");
+                    } else if (check_Han_KM == 0) {
+                        JOptionPane.showMessageDialog(this, "Mã khuyến đã quá thời gian sử dụng ! ");
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "Vui lòng nhập mã khuyến mãi");
