@@ -27,7 +27,7 @@ public class KhuyenMaiDAO implements InterfaceKhuyenMai {
                 + "      ,[NgayBatDau]\n"
                 + "      ,[NgayKetThuc]\n"
                 + "      ,[TrangThai]\n"
-                + "  FROM [dbo].[KhuyenMai]";
+                + "  FROM [dbo].[KhuyenMai] where TrangThai = 1";
         List<KhuyenMai> listKM = new ArrayList<>();
         try (Connection con = DBconnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();

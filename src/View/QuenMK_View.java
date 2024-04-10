@@ -274,7 +274,7 @@ public class QuenMK_View extends javax.swing.JFrame {
                     try {
                         Thread.sleep(1000);
                         lbl_ThongBaoTimeOTP.setText("Nhận mã mới sau " + String.valueOf(i));
-                        if (i == 0) {
+                        if (i == 30) {
                             btn_getMa.setEnabled(true);
                             lbl_ThongBaoTimeOTP.setText("");
                             btn_getMa.setBackground(Color.ORANGE);
