@@ -47,7 +47,6 @@ public class Main extends javax.swing.JFrame {
     private Main() {
         initComponents();
         setLocationRelativeTo(null);
-
     }
 
     @Override

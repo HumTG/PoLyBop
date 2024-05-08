@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jchart">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/library/jchart/jfreechart-1.0.19-swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jchart/poi-ooxml-3.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jchart/hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jchart/jfreesvg-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jchart/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jchart/jfreechart-1.0.19-experimental.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

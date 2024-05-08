@@ -154,6 +154,10 @@ public class KhuyenMaiView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Giá trị phải lớn hơn 0");
                 return false;
             }
+            if (giaTri > 100) {
+                JOptionPane.showMessageDialog(this, "Giá trị phải <= 100 ");
+                return false;
+            }
 
         } catch (NumberFormatException ex) {
             JOptionPane.showConfirmDialog(this, "Giá phải là số");
@@ -229,6 +233,10 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             int giaTri = Integer.valueOf(txtGiaTri.getText());
             if (giaTri < 0) {
                 JOptionPane.showMessageDialog(this, "Giá trị phải lớn hơn 0");
+                return false;
+            }
+            else if (giaTri > 100) {
+                JOptionPane.showMessageDialog(this, "Giá trị phải <= 100");
                 return false;
             }
 
@@ -841,7 +849,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
     private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
 
-       private void showSaveDialogAndExport() {
+    private void showSaveDialogAndExport() {
         JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home") + "/Downloads");
         fileChooser.setDialogTitle("Save Excel File");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
@@ -864,7 +872,8 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             exportToExcel(fileToSave);
         }
     }
-        private void exportToExcel(File fileToSave) {
+
+    private void exportToExcel(File fileToSave) {
         DefaultTableModel model = (DefaultTableModel) tblKhuyenMai.getModel();
         Workbook workbook = new HSSFWorkbook(); // Sử dụng HSSFWorkbook cho định dạng .xls
         Sheet sheet = workbook.createSheet("KhachHangData");
@@ -886,7 +895,7 @@ public class KhuyenMaiView extends javax.swing.JPanel {
         }
 
         // Định dạng lại các cột (ví dụ: làm to rộng cột A)
-         for (int col = 0; col < 10; col++) {
+        for (int col = 0; col < 10; col++) {
             sheet.setColumnWidth(col, 5000); // 3000 đơn vị là width, tùy thuộc vào đơn vị của bạn
         }
 
@@ -898,5 +907,5 @@ public class KhuyenMaiView extends javax.swing.JPanel {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Export Excel failed!");
         }
-    } 
+    }
 }

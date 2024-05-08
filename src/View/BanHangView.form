@@ -52,7 +52,7 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Danh S&#xe1;ch S&#x1ea3;n Ph&#x1ea9;m">
+            <TitledBorder title="Phi&#x1ebf;u h&#xf3;a &#x111;&#x1a1;n">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder>
                   <Color PropertyName="color" blue="33" green="33" red="ff" type="rgb"/>
@@ -379,7 +379,7 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Danh S&#xe1;ch S&#x1ea3;n Ph&#x1ea9;m">
+            <TitledBorder title="H&#xf3;a &#x110;&#x1a1;n&#xa;">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder>
                   <Color PropertyName="color" blue="33" green="33" red="ff" type="rgb"/>
@@ -465,7 +465,7 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Danh S&#xe1;ch S&#x1ea3;n Ph&#x1ea9;m">
+            <TitledBorder title="H&#xf3;a &#x111;&#x1a1;n chi ti&#x1ebf;t&#xa;">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder>
                   <Color PropertyName="color" blue="33" green="33" red="ff" type="rgb"/>
