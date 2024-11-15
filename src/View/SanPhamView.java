@@ -1075,7 +1075,8 @@ public class SanPhamView extends javax.swing.JPanel {
             jTabbedPane1.setSelectedIndex(0);
         }
     }
-         private void showSaveDialogAndExport() {
+       
+    private void showSaveDialogAndExport() {
         JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home") + "/Downloads");
         fileChooser.setDialogTitle("Save Excel File");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
